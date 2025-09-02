@@ -27,7 +27,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         </header>
       )}
 
-      <main className="flex flex-grow flex-col items-center justify-center">
+      <main className="flex grow flex-col items-center justify-center">
         <h2 className="mt-6 text-center text-2xl/9 font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
           {header}
         </h2>

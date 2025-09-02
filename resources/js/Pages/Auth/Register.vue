@@ -92,9 +92,9 @@ const submit = () => {
                         <Checkbox id="terms" v-model:checked="form.terms" name="terms" required/>
 
                         <div class="ml-2">
-                            I agree to the <a :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            I agree to the <a :href="route('terms.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                               target="_blank">Terms
-                            of Service</a> and <a :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            of Service</a> and <a :href="route('policy.show')" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                                                   target="_blank">Privacy
                             Policy</a>
                         </div>
@@ -105,7 +105,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link :href="route('login')"
-                      class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                      class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Already registered?
                 </Link>
 

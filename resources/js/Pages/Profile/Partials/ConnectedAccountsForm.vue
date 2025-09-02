@@ -68,7 +68,7 @@ const closeModal = () => {
         </template>
 
         <template #content>
-           <div class="p-4 bg-red-500/10 text-red-500 border-l-4 border-red-600 rounded font-medium text-sm">
+           <div class="p-4 bg-red-500/10 text-red-500 border-l-4 border-red-600 rounded-sm font-medium text-sm">
               If you feel any of your connected accounts have been compromised, you should disconnect them
               immediately and change your password.
            </div>
@@ -83,7 +83,7 @@ const closeModal = () => {
                                     <button
                                         v-if="$page.props.jetstream.managesProfilePhotos && getAccountForProvider(provider).avatar_path"
                                         @click="setProfilePhoto(getAccountForProvider(provider).id)"
-                                        class="cursor-pointer ms-6 text-sm text-gray-500 hover:text-gray-700 focus:outline-none">
+                                        class="cursor-pointer ms-6 text-sm text-gray-500 hover:text-gray-700 focus:outline-hidden">
                                         Use Avatar as Profile Photo
                                     </button>
 
