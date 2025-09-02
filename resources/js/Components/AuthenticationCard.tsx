@@ -1,48 +1,56 @@
-import React, { ReactNode } from 'react';
-import Logo from "@/Components/Logo";
-import { Link } from "@inertiajs/react";
+import React from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/Components/ui/card';
 
-interface AuthLayoutProps {
-  logo?: boolean;
-  header?: ReactNode;
-  footer?: ReactNode;
-  children: ReactNode;
+interface Props {
+  Title?: string;
+  Description?: string;
+  children?: React.ReactNode;
+  footer?: React.ReactNode;
 }
 
-const AuthLayout: React.FC<AuthLayoutProps> = ({ 
-  logo = true, 
-  header, 
-  footer, 
-  children 
-}) => {
+interface FooterProps {
+  children?: React.ReactNode;
+}
+
+const Footer: React.FC<FooterProps> = ({ children }) => {
+  return <>{children}</>;
+};
+
+interface AuthenticationCardComponent extends React.FC<Props> {
+  Footer: typeof Footer;
+}
+
+const Component: AuthenticationCardComponent = ({ Title, Description, children, footer }) => {
   return (
-    <div className="flex min-h-screen flex-col bg-white">
-      {logo && (
-        <header className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="flex justify-center">
-            <Link href="/">
-              <Logo size="lg" />
-            </Link>
-          </div>
-        </header>
-      )}
-
-      <main className="flex grow flex-col items-center justify-center">
-        <h2 className="mt-6 text-center text-2xl/9 font-semibold tracking-tight text-zinc-900 dark:text-zinc-100">
-          {header}
-        </h2>
-        <div className="mt-6 w-full sm:mx-auto sm:max-w-md">
-          <div className="rounded-lg border-zinc-500/10 px-6 py-12 sm:px-12 dark:border-zinc-500/10 dark:bg-zinc-500/5">
-            {children}
-          </div>
-
-          <p className="mt-10 text-center text-sm text-zinc-500">
-            {footer}
-          </p>
-        </div>
-      </main>
+    <div className="flex min-h-screen flex-col items-center pt-6 sm:justify-center sm:pt-0">
+      <a href="/">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          viewBox="0 0 40 42" 
+          className="size-12 fill-current text-[var(--foreground)] dark:text-white"
+        >
+          <path
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M17.2 5.633 8.6.855 0 5.633v26.51l16.2 9 16.2-9v-8.442l7.6-4.223V9.856l-8.6-4.777-8.6 4.777V18.3l-5.6 3.111V5.633ZM38 18.301l-5.6 3.11v-6.157l5.6-3.11V18.3Zm-1.06-7.856-5.54 3.078-5.54-3.079 5.54-3.078 5.54 3.079ZM24.8 18.3v-6.157l5.6 3.111v6.158L24.8 18.3Zm-1 1.732 5.54 3.078-13.14 7.302-5.54-3.078 13.14-7.3v-.002Zm-16.2 7.89 7.6 4.222V38.3L2 30.966V7.92l5.6 3.111v16.892ZM8.6 9.3 3.06 6.222 8.6 3.143l5.54 3.08L8.6 9.3Zm21.8 15.51-13.2 7.334V38.3l13.2-7.334v-6.156ZM9.6 11.034l5.6-3.11v14.6l-5.6 3.11v-14.6Z"
+          />
+        </svg>
+      </a>
+      <Card className="mx-auto mt-6 w-full max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-xl">{Title}</CardTitle>
+          <CardDescription>{Description}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          {children}
+        </CardContent>
+      </Card>
+      {footer}
     </div>
   );
 };
 
-export default AuthLayout;
+Component.Footer = Footer;
+
+export default Component;
