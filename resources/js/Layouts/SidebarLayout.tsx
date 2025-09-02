@@ -15,6 +15,7 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator,
 } from '@/Components/ui/breadcrumb';
+import { AppSidebar } from '@/Components/app-sidebar';
 import { useFlashMessages } from '@/hooks/useFlashMessages';
 
 interface BreadcrumbData {
@@ -48,8 +49,7 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
             <Toaster position="top-right" />
 
             <SidebarProvider className="flex flex-1 overflow-hidden">
-                {/* TODO: Add AppSidebar component when available */}
-                {/* <AppSidebar /> */}
+                <AppSidebar />
                 
                 <SidebarInset className="flex h-full flex-col overflow-hidden">
                     <header
