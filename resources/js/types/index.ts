@@ -42,6 +42,15 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
+export interface ApiToken {
+    id: number;
+    name: string;
+    abilities: string[];
+    last_used_ago?: string;
+    created_at?: string;
+    updated_at?: string;
+}
+
 export type PageProps<
     T extends Record<string, unknown> = Record<string, unknown>,
 > = T & {

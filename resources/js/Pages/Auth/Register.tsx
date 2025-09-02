@@ -55,9 +55,9 @@ const Register: React.FC = () => {
     const submit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Set password confirmation to match password
-        setData('password_confirmation', data.password);
-
+        // Directly update password_confirmation before posting
+        data.password_confirmation = data.password;
+        
         post(route('register'), {
             onFinish: () => reset('password', 'password_confirmation'),
         });
