@@ -4,7 +4,7 @@ const SectionBorder: React.FC = () => {
     return (
         <div className="hidden sm:block">
             <div className="py-8">
-                <div className="border-t border-gray-200" />
+                <div className="border-t border-zinc-200" />
             </div>
         </div>
     );

@@ -1,11 +1,10 @@
-import ActionLink from '@/Components/ActionLink';
 import ActionSection from '@/Components/ActionSection';
 import ConnectedAccount from '@/Components/ConnectedAccount';
 import DialogModal from '@/Components/DialogModal';
 import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
-import { useForm, usePage } from '@inertiajs/react';
+import { Link, useForm, usePage } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 
 interface Props {
@@ -53,12 +52,12 @@ export default function ConnectedAccountsForm({ className }: Props) {
     };
 
     return (
-        <ActionSection title="Connected Accounts" description="Connect your social media accounts to enable Sign In with OAuth." className={className}>
-            <div className="rounded-sm border-l-4 border-red-600 bg-red-500/10 p-4 text-sm font-medium text-red-500">
-                If you feel any of your connected accounts have been compromised, you should disconnect them immediately and change your password.
-            </div>
-
-            <div className="mt-6 space-y-6">
+        <ActionSection
+            title="Connected Accounts"
+            description="Connect your social media accounts to enable Sign In with OAuth."
+            className={className}
+        >
+            <div className="space-y-6">
                 {page.props.socialstream?.providers?.map((provider: any) => {
                     const account = getAccountForProvider(provider);
 
@@ -86,7 +85,9 @@ export default function ConnectedAccountsForm({ className }: Props) {
                                         )}
                                     </div>
                                 ) : (
-                                    <ActionLink href={route('oauth.redirect', { provider: provider.id })}>Connect</ActionLink>
+                                    <Button asChild>
+                                        <Link href={route('oauth.redirect', { provider: provider.id })}>Connect</Link>
+                                    </Button>
                                 )
                             }
                         />

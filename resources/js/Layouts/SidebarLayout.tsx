@@ -1,22 +1,11 @@
-import React from 'react';
-import { Head } from '@inertiajs/react';
-import { Toaster } from 'sonner';
-import { Separator } from '@/Components/ui/separator';
-import { 
-    SidebarInset, 
-    SidebarProvider, 
-    SidebarTrigger 
-} from '@/Components/ui/sidebar';
-import {
-    Breadcrumb,
-    BreadcrumbItem,
-    BreadcrumbLink,
-    BreadcrumbList,
-    BreadcrumbPage,
-    BreadcrumbSeparator,
-} from '@/Components/ui/breadcrumb';
 import { AppSidebar } from '@/Components/app-sidebar';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/Components/ui/breadcrumb';
+import { Separator } from '@/Components/ui/separator';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/Components/ui/sidebar';
 import { useFlashMessages } from '@/hooks/useFlashMessages';
+import { Head } from '@inertiajs/react';
+import React from 'react';
+import { Toaster } from 'sonner';
 
 interface BreadcrumbData {
     label: string;
@@ -32,13 +21,7 @@ interface SidebarLayoutProps {
     headerActions?: React.ReactNode;
 }
 
-const SidebarLayout: React.FC<SidebarLayoutProps> = ({ 
-    title, 
-    breadcrumbs, 
-    children, 
-    header,
-    headerActions 
-}) => {
+const SidebarLayout: React.FC<SidebarLayoutProps> = ({ title, breadcrumbs, children, header, headerActions }) => {
     // Initialize flash message handling
     useFlashMessages();
 
@@ -50,11 +33,9 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
 
             <SidebarProvider className="flex flex-1 overflow-hidden">
                 <AppSidebar />
-                
-                <SidebarInset className="flex flex-col overflow-hidden" >
-                    <header
-                        className="flex h-14 shrink-0 items-center gap-2 border-b border-zinc-900/10 transition-[width,height] ease-linear dark:border-zinc-800"
-                    >
+
+                <SidebarInset className="flex flex-col overflow-hidden">
+                    <header className="flex h-14 shrink-0 items-center gap-2 border-b border-zinc-900/10 transition-[width,height] ease-linear dark:border-zinc-800">
                         <div className="flex items-center gap-2 px-4">
                             <SidebarTrigger className="-ml-1" />
                             <Separator orientation="vertical" className="mr-2 h-4" />
@@ -67,18 +48,12 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
                                             <React.Fragment key={index}>
                                                 <BreadcrumbItem className={index < breadcrumbs.length - 1 ? 'hidden md:block' : ''}>
                                                     {!breadcrumb.current && breadcrumb.href ? (
-                                                        <BreadcrumbLink href={breadcrumb.href}>
-                                                            {breadcrumb.label}
-                                                        </BreadcrumbLink>
+                                                        <BreadcrumbLink href={breadcrumb.href}>{breadcrumb.label}</BreadcrumbLink>
                                                     ) : (
-                                                        <BreadcrumbPage>
-                                                            {breadcrumb.label}
-                                                        </BreadcrumbPage>
+                                                        <BreadcrumbPage>{breadcrumb.label}</BreadcrumbPage>
                                                     )}
                                                 </BreadcrumbItem>
-                                                {index < breadcrumbs.length - 1 && (
-                                                    <BreadcrumbSeparator className="hidden md:block" />
-                                                )}
+                                                {index < breadcrumbs.length - 1 && <BreadcrumbSeparator className="hidden md:block" />}
                                             </React.Fragment>
                                         ))}
                                     </BreadcrumbList>
@@ -90,22 +65,11 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
                         </div>
                     </header>
 
-                    {/* Page Header (optional) */}
-                    {header && (
-                        <div className="shrink-0 border-b border-zinc-900/5 bg-white">
-                            <div className="px-4 py-6">
-                                {header}
-                            </div>
-                        </div>
-                    )}
-
                     {/* Page Content - Scrollable Container */}
-                    <div className="flex-1 overflow-auto">
-                        {children}
-                    </div>
+                    <div className="flex-1 overflow-auto">{children}</div>
                 </SidebarInset>
             </SidebarProvider>
-            
+
             {/* SSR Indicator */}
         </div>
     );
