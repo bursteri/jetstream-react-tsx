@@ -1,24 +1,26 @@
-import React from 'react';
-import { useForm } from '@inertiajs/react';
 import FormSection from '@/Components/FormSection';
 import InputError from '@/Components/InputError';
-import { Label } from '@/Components/ui/label';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
-import route from 'ziggy-js';
+import { Label } from '@/Components/ui/label';
+import { useForm } from '@inertiajs/react';
+import React from 'react';
 
 interface UpdateTeamNameFormProps {
     team: any;
     permissions: any;
 }
 
+interface FormData {
+    name: string;
+}
+
 const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissions }) => {
-    const { data, setData, put, processing, errors, recentlySuccessful } = useForm({
+    const { data, setData, put, processing, errors, recentlySuccessful } = useForm<FormData>({
         name: team.name,
     });
 
-    const updateTeamName = (e: React.FormEvent) => {
-        e.preventDefault();
+    const updateTeamName = () => {
         put(route('teams.update', team), {
             errorBag: 'updateTeamName',
             preserveScroll: true,
@@ -27,7 +29,7 @@ const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissio
 
     return (
         <FormSection
-            onSubmit={updateTeamName}
+            onSubmitted={updateTeamName}
             title="Team Name"
             description="The team's name and owner information."
             form={
@@ -35,18 +37,12 @@ const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissio
                     <div className="col-span-6">
                         <Label>Team Owner</Label>
 
-                        <div className="flex items-center mt-2">
-                            <img 
-                                className="size-12 rounded-full object-cover" 
-                                src={team.owner.profile_photo_url} 
-                                alt={team.owner.name}
-                            />
+                        <div className="mt-2 flex items-center">
+                            <img className="size-12 rounded-full object-cover" src={team.owner.profile_photo_url} alt={team.owner.name} />
 
                             <div className="ms-4 leading-tight">
                                 <div className="text-gray-900">{team.owner.name}</div>
-                                <div className="text-gray-700 text-sm">
-                                    {team.owner.email}
-                                </div>
+                                <div className="text-sm text-gray-700">{team.owner.email}</div>
                             </div>
                         </div>
                     </div>
@@ -70,15 +66,9 @@ const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissio
             actions={
                 permissions.canUpdateTeam ? (
                     <>
-                        {recentlySuccessful && (
-                            <span className="me-3 text-sm text-gray-600">Saved.</span>
-                        )}
+                        {recentlySuccessful && <span className="me-3 text-sm text-gray-600">Saved.</span>}
 
-                        <Button 
-                            type="submit"
-                            disabled={processing}
-                            className={processing ? 'opacity-25' : ''}
-                        >
+                        <Button type="submit" disabled={processing} className={processing ? 'opacity-25' : ''}>
                             Save
                         </Button>
                     </>

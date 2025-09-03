@@ -1,21 +1,19 @@
-import React from 'react';
-import { useForm, usePage } from '@inertiajs/react';
 import FormSection from '@/Components/FormSection';
 import InputError from '@/Components/InputError';
-import { Label } from '@/Components/ui/label';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
-import route from 'ziggy-js';
+import { Label } from '@/Components/ui/label';
+import { useForm, usePage } from '@inertiajs/react';
+import React from 'react';
 
 const CreateTeamForm: React.FC = () => {
     const { auth }: any = usePage().props;
-    
+
     const { data, setData, post, processing, errors } = useForm({
         name: '',
     });
 
-    const createTeam = (e: React.FormEvent) => {
-        e.preventDefault();
+    const createTeam = () => {
         post(route('teams.store'), {
             errorBag: 'createTeam',
             preserveScroll: true,
@@ -24,7 +22,7 @@ const CreateTeamForm: React.FC = () => {
 
     return (
         <FormSection
-            onSubmit={createTeam}
+            onSubmitted={createTeam}
             title="Team Details"
             description="Create a new team to collaborate with others on projects."
             form={
@@ -32,18 +30,12 @@ const CreateTeamForm: React.FC = () => {
                     <div className="col-span-6">
                         <Label>Team Owner</Label>
 
-                        <div className="flex items-center mt-2">
-                            <img 
-                                className="object-cover size-12 rounded-full" 
-                                src={auth.user.profile_photo_url} 
-                                alt={auth.user.name}
-                            />
+                        <div className="mt-2 flex items-center">
+                            <img className="size-12 rounded-full object-cover" src={auth.user.profile_photo_url} alt={auth.user.name} />
 
                             <div className="ms-4 leading-tight">
                                 <div className="text-gray-900">{auth.user.name}</div>
-                                <div className="text-sm text-gray-700">
-                                    {auth.user.email}
-                                </div>
+                                <div className="text-sm text-gray-700">{auth.user.email}</div>
                             </div>
                         </div>
                     </div>
@@ -55,7 +47,7 @@ const CreateTeamForm: React.FC = () => {
                             value={data.name}
                             onChange={(e) => setData('name', e.target.value)}
                             type="text"
-                            className="block w-full mt-1"
+                            className="mt-1 block w-full"
                             autoFocus
                         />
                         <InputError message={errors.name} className="mt-2" />
@@ -63,11 +55,7 @@ const CreateTeamForm: React.FC = () => {
                 </>
             }
             actions={
-                <Button 
-                    type="submit"
-                    disabled={processing}
-                    className={processing ? 'opacity-25' : ''}
-                >
+                <Button type="submit" disabled={processing} className={processing ? 'opacity-25' : ''}>
                     Create
                 </Button>
             }

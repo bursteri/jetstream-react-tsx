@@ -36,9 +36,10 @@ export default function SetPasswordForm({ className }: Props) {
 
     return (
         <FormSection
-            onSubmit={setPassword}
+            onSubmitted={setPassword}
             title="Set Password"
             description="Ensure your account is using a long, random password to stay secure."
+            className={className}
             form={
                 <>
                     <div className="col-span-6 sm:col-span-4">

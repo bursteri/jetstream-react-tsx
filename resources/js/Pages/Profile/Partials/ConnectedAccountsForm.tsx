@@ -1,5 +1,3 @@
-import React, { useState, useRef } from 'react';
-import { useForm, usePage } from '@inertiajs/react';
 import ActionLink from '@/Components/ActionLink';
 import ActionSection from '@/Components/ActionSection';
 import ConnectedAccount from '@/Components/ConnectedAccount';
@@ -7,6 +5,8 @@ import DialogModal from '@/Components/DialogModal';
 import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
+import { useForm, usePage } from '@inertiajs/react';
+import { useRef, useState } from 'react';
 
 interface Props {
     className?: string;
@@ -23,14 +23,12 @@ export default function ConnectedAccountsForm({ className }: Props) {
     });
 
     const getAccountForProvider = (provider: any) => {
-        return page.props.socialstream?.connectedAccounts
-            ?.filter((account: any) => account.provider === provider.id)
-            .shift();
+        return page.props.socialstream?.connectedAccounts?.filter((account: any) => account.provider === provider.id).shift();
     };
 
     const setProfilePhoto = (id: number) => {
         form.put(route('user-profile-photo.set', { id }), {
-            preserveScroll: true
+            preserveScroll: true,
         });
     };
 
@@ -55,20 +53,15 @@ export default function ConnectedAccountsForm({ className }: Props) {
     };
 
     return (
-        <ActionSection
-            title="Connected Accounts"
-            description="Connect your social media accounts to enable Sign In with OAuth."
-            className={className}
-        >
-            <div className="p-4 bg-red-500/10 text-red-500 border-l-4 border-red-600 rounded-sm font-medium text-sm">
-                If you feel any of your connected accounts have been compromised, you should disconnect them
-                immediately and change your password.
+        <ActionSection title="Connected Accounts" description="Connect your social media accounts to enable Sign In with OAuth." className={className}>
+            <div className="rounded-sm border-l-4 border-red-600 bg-red-500/10 p-4 text-sm font-medium text-red-500">
+                If you feel any of your connected accounts have been compromised, you should disconnect them immediately and change your password.
             </div>
 
-            <div className="space-y-6 mt-6">
+            <div className="mt-6 space-y-6">
                 {page.props.socialstream?.providers?.map((provider: any) => {
                     const account = getAccountForProvider(provider);
-                    
+
                     return (
                         <ConnectedAccount
                             key={provider.id}
@@ -80,25 +73,20 @@ export default function ConnectedAccountsForm({ className }: Props) {
                                         {page.props.jetstream?.managesProfilePhotos && account.avatar_path && (
                                             <button
                                                 onClick={() => setProfilePhoto(account.id)}
-                                                className="cursor-pointer ms-6 text-sm text-gray-500 hover:text-gray-700 focus:outline-hidden"
+                                                className="ms-6 cursor-pointer text-sm text-gray-500 hover:text-gray-700 focus:outline-hidden"
                                             >
                                                 Use Avatar as Profile Photo
                                             </button>
                                         )}
 
                                         {(page.props.socialstream?.connectedAccounts?.length > 1 || page.props.socialstream?.hasPassword) && (
-                                            <Button
-                                                variant="destructive"
-                                                onClick={() => confirmRemoveAccount(account.id)}
-                                            >
+                                            <Button variant="destructive" onClick={() => confirmRemoveAccount(account.id)}>
                                                 Remove
                                             </Button>
                                         )}
                                     </div>
                                 ) : (
-                                    <ActionLink href={route('oauth.redirect', { provider: provider.id })}>
-                                        Connect
-                                    </ActionLink>
+                                    <ActionLink href={route('oauth.redirect', { provider: provider.id })}>Connect</ActionLink>
                                 )
                             }
                         />
@@ -138,11 +126,7 @@ export default function ConnectedAccountsForm({ className }: Props) {
                         <Button variant="outline" onClick={closeModal}>
                             Cancel
                         </Button>
-                        <Button
-                            className="ml-2"
-                            onClick={removeAccount}
-                            disabled={form.processing}
-                        >
+                        <Button className="ml-2" onClick={removeAccount} disabled={form.processing}>
                             Remove Account
                         </Button>
                     </>

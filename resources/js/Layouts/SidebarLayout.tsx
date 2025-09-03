@@ -51,7 +51,7 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({
             <SidebarProvider className="flex flex-1 overflow-hidden">
                 <AppSidebar />
                 
-                <SidebarInset className="flex h-full flex-col overflow-hidden">
+                <SidebarInset className="flex flex-col overflow-hidden" >
                     <header
                         className="flex h-14 shrink-0 items-center gap-2 border-b border-zinc-900/10 transition-[width,height] ease-linear dark:border-zinc-800"
                     >

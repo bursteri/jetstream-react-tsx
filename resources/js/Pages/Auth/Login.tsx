@@ -1,8 +1,8 @@
 import AuthenticationCard from '@/Components/AuthenticationCard';
 import InputError from '@/Components/InputError';
 import Socialstream from '@/Components/Socialstream';
-import { Head } from '@inertiajs/react';
-import React, { useState } from 'react';
+import { Head, useForm } from '@inertiajs/react';
+import React from 'react';
 
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
@@ -31,49 +31,23 @@ interface FormData {
 }
 
 const Login: React.FC<Props> = ({ canResetPassword, status, errors = {}, socialstream }) => {
-    const [form, setForm] = useState<FormData>({
+    const form = useForm<FormData>({
         email: '',
         password: '',
         remember: true,
     });
-    const [processing, setProcessing] = useState(false);
 
-    const handleInputChange = (field: keyof FormData, value: string | boolean) => {
-        setForm((prev) => ({
-            ...prev,
-            [field]: value,
-        }));
-    };
-
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setProcessing(true);
 
-        try {
-            // Transform data similar to Inertia's form.transform()
-            const transformedData = {
-                ...form,
-                remember: form.remember ? 'on' : '',
-            };
-
-            // Replace with your form submission logic
-            // This would typically be an Inertia post request or similar
-            await fetch(route('login'), {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
-                },
-                body: JSON.stringify(transformedData),
-            });
-
-            // Reset password field on finish
-            setForm((prev) => ({ ...prev, password: '' }));
-        } catch (error) {
-            console.error('Login error:', error);
-        } finally {
-            setProcessing(false);
-        }
+        form.transform((data) => ({
+            ...data,
+            remember: data.remember ? 'on' : '',
+        }));
+        
+        form.post(route('login'), {
+            onFinish: () => form.reset('password'),
+        });
     };
 
     return (
@@ -88,14 +62,14 @@ const Login: React.FC<Props> = ({ canResetPassword, status, errors = {}, socials
                         <Label htmlFor="email">Email</Label>
                         <Input
                             id="email"
-                            value={form.email}
-                            onChange={(e) => handleInputChange('email', e.target.value)}
+                            value={form.data.email}
+                            onChange={(e) => form.setData('email', e.target.value)}
                             type="email"
                             placeholder="m@example.com"
                             required
                             autoFocus
                         />
-                        <InputError message={errors.email} />
+                        <InputError message={form.errors.email} />
                     </div>
 
                     <div className="grid gap-2">
@@ -109,17 +83,17 @@ const Login: React.FC<Props> = ({ canResetPassword, status, errors = {}, socials
                         </div>
                         <Input
                             id="password"
-                            value={form.password}
-                            onChange={(e) => handleInputChange('password', e.target.value)}
+                            value={form.data.password}
+                            onChange={(e) => form.setData('password', e.target.value)}
                             type="password"
                             autoComplete="current-password"
                             required
                         />
-                        <InputError message={errors.password} />
+                        <InputError message={form.errors.password} />
                     </div>
 
-                    <Button type="submit" className={`w-full ${processing ? 'opacity-50' : ''}`} disabled={processing}>
-                        {processing ? 'Logging in...' : 'Login'}
+                    <Button type="submit" className={`w-full ${form.processing ? 'opacity-50' : ''}`} disabled={form.processing}>
+                        {form.processing ? 'Logging in...' : 'Login'}
                     </Button>
                 </form>
 

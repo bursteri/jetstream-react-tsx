@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
-import { router, useForm, usePage } from '@inertiajs/react';
 import ActionSection from '@/Components/ActionSection';
 import FormSection from '@/Components/FormSection';
 import InputError from '@/Components/InputError';
 import SectionBorder from '@/Components/SectionBorder';
 import { Button } from '@/Components/ui/button';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/Components/ui/dialog';
 import { Input } from '@/Components/ui/input';
 import { Label } from '@/Components/ui/label';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/Components/ui/dialog';
-import route from 'ziggy-js';
 import { cn } from '@/lib/utils';
+import { router, useForm, usePage } from '@inertiajs/react';
+import React, { useState } from 'react';
 
 interface TeamMemberManagerProps {
     team: any;
@@ -25,14 +17,9 @@ interface TeamMemberManagerProps {
     className?: string;
 }
 
-const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ 
-    team, 
-    availableRoles, 
-    userPermissions,
-    className 
-}) => {
+const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRoles, userPermissions, className }) => {
     const page: any = usePage();
-    
+
     const addTeamMemberForm = useForm({
         email: '',
         role: null as string | null,
@@ -50,8 +37,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
     const [confirmingLeavingTeam, setConfirmingLeavingTeam] = useState(false);
     const [teamMemberBeingRemoved, setTeamMemberBeingRemoved] = useState<any>(null);
 
-    const addTeamMember = (e: React.FormEvent) => {
-        e.preventDefault();
+    const addTeamMember = () => {
         addTeamMemberForm.post(route('team-members.store', team), {
             errorBag: 'addTeamMember',
             preserveScroll: true,
@@ -100,7 +86,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
     };
 
     const displayableRole = (role: string) => {
-        return availableRoles.find(r => r.key === role)?.name || role;
+        return availableRoles.find((r) => r.key === role)?.name || role;
     };
 
     return (
@@ -108,9 +94,9 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
             {userPermissions.canAddTeamMembers && (
                 <>
                     <SectionBorder />
-                    
+
                     <FormSection
-                        onSubmit={addTeamMember}
+                        onSubmitted={addTeamMember}
                         title="Add Team Member"
                         description="Add a new team member to your team, allowing them to collaborate with you."
                         form={
@@ -138,37 +124,54 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                                         <Label htmlFor="roles">Role</Label>
                                         <InputError message={addTeamMemberForm.errors.role} className="mt-2" />
 
-                                        <div className="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
+                                        <div className="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200">
                                             {availableRoles.map((role, i) => (
                                                 <button
                                                     key={role.key}
                                                     type="button"
                                                     className={cn(
-                                                        "relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500",
-                                                        i > 0 && "border-t border-gray-200 focus:border-none rounded-t-none",
-                                                        i !== availableRoles.length - 1 && "rounded-b-none"
+                                                        'relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-hidden',
+                                                        i > 0 && 'rounded-t-none border-t border-gray-200 focus:border-none',
+                                                        i !== availableRoles.length - 1 && 'rounded-b-none',
                                                     )}
                                                     onClick={() => addTeamMemberForm.setData('role', role.key)}
                                                 >
-                                                    <div className={addTeamMemberForm.data.role && addTeamMemberForm.data.role !== role.key ? 'opacity-50' : ''}>
+                                                    <div
+                                                        className={
+                                                            addTeamMemberForm.data.role && addTeamMemberForm.data.role !== role.key
+                                                                ? 'opacity-50'
+                                                                : ''
+                                                        }
+                                                    >
                                                         <div className="flex items-center">
-                                                            <div className={cn(
-                                                                "text-sm text-gray-600",
-                                                                addTeamMemberForm.data.role === role.key && "font-semibold"
-                                                            )}>
+                                                            <div
+                                                                className={cn(
+                                                                    'text-sm text-gray-600',
+                                                                    addTeamMemberForm.data.role === role.key && 'font-semibold',
+                                                                )}
+                                                            >
                                                                 {role.name}
                                                             </div>
 
                                                             {addTeamMemberForm.data.role === role.key && (
-                                                                <svg className="ms-2 size-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                <svg
+                                                                    className="ms-2 size-5 text-green-400"
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    fill="none"
+                                                                    viewBox="0 0 24 24"
+                                                                    strokeWidth="1.5"
+                                                                    stroke="currentColor"
+                                                                >
+                                                                    <path
+                                                                        strokeLinecap="round"
+                                                                        strokeLinejoin="round"
+                                                                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                                    />
                                                                 </svg>
                                                             )}
                                                         </div>
 
-                                                        <div className="mt-2 text-xs text-gray-600 text-start">
-                                                            {role.description}
-                                                        </div>
+                                                        <div className="mt-2 text-start text-xs text-gray-600">{role.description}</div>
                                                     </div>
                                                 </button>
                                             ))}
@@ -179,10 +182,8 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                         }
                         actions={
                             <>
-                                {addTeamMemberForm.recentlySuccessful && (
-                                    <span className="me-3 text-sm text-gray-600">Added.</span>
-                                )}
-                                <Button 
+                                {addTeamMemberForm.recentlySuccessful && <span className="me-3 text-sm text-gray-600">Added.</span>}
+                                <Button
                                     type="submit"
                                     disabled={addTeamMemberForm.processing}
                                     className={addTeamMemberForm.processing ? 'opacity-25' : ''}
@@ -206,14 +207,12 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                             <div className="space-y-6">
                                 {team.team_invitations.map((invitation: any) => (
                                     <div key={invitation.id} className="flex items-center justify-between">
-                                        <div className="text-gray-600">
-                                            {invitation.email}
-                                        </div>
+                                        <div className="text-gray-600">{invitation.email}</div>
 
                                         <div className="flex items-center">
                                             {userPermissions.canRemoveTeamMembers && (
                                                 <button
-                                                    className="cursor-pointer ms-6 text-sm text-red-500 focus:outline-hidden"
+                                                    className="ms-6 cursor-pointer text-sm text-red-500 focus:outline-hidden"
                                                     onClick={() => cancelTeamInvitation(invitation)}
                                                 >
                                                     Cancel
@@ -241,35 +240,25 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                                     <div key={user.id} className="flex items-center justify-between">
                                         <div className="flex items-center">
                                             <img className="size-8 rounded-full object-cover" src={user.profile_photo_url} alt={user.name} />
-                                            <div className="ms-4">
-                                                {user.name}
-                                            </div>
+                                            <div className="ms-4">{user.name}</div>
                                         </div>
 
                                         <div className="flex items-center">
                                             {userPermissions.canUpdateTeamMembers && availableRoles.length ? (
-                                                <button
-                                                    className="ms-2 text-sm text-gray-400 underline"
-                                                    onClick={() => manageRole(user)}
-                                                >
+                                                <button className="ms-2 text-sm text-gray-400 underline" onClick={() => manageRole(user)}>
                                                     {displayableRole(user.membership.role)}
                                                 </button>
                                             ) : availableRoles.length ? (
-                                                <div className="ms-2 text-sm text-gray-400">
-                                                    {displayableRole(user.membership.role)}
-                                                </div>
+                                                <div className="ms-2 text-sm text-gray-400">{displayableRole(user.membership.role)}</div>
                                             ) : null}
 
                                             {page.props.auth.user.id === user.id ? (
-                                                <button
-                                                    className="cursor-pointer ms-6 text-sm text-red-500"
-                                                    onClick={confirmLeavingTeam}
-                                                >
+                                                <button className="ms-6 cursor-pointer text-sm text-red-500" onClick={confirmLeavingTeam}>
                                                     Leave
                                                 </button>
                                             ) : userPermissions.canRemoveTeamMembers ? (
                                                 <button
-                                                    className="cursor-pointer ms-6 text-sm text-red-500"
+                                                    className="ms-6 cursor-pointer text-sm text-red-500"
                                                     onClick={() => confirmTeamMemberRemoval(user)}
                                                 >
                                                     Remove
@@ -292,37 +281,43 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                     </DialogHeader>
 
                     {managingRoleFor && (
-                        <div className="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
+                        <div className="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200">
                             {availableRoles.map((role, i) => (
                                 <button
                                     key={role.key}
                                     type="button"
                                     className={cn(
-                                        "relative px-4 py-3 inline-flex w-full rounded-lg focus:z-10 focus:outline-hidden focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500",
-                                        i > 0 && "border-t border-gray-200 focus:border-none rounded-t-none",
-                                        i !== availableRoles.length - 1 && "rounded-b-none"
+                                        'relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-hidden',
+                                        i > 0 && 'rounded-t-none border-t border-gray-200 focus:border-none',
+                                        i !== availableRoles.length - 1 && 'rounded-b-none',
                                     )}
                                     onClick={() => updateRoleForm.setData('role', role.key)}
                                 >
                                     <div className={updateRoleForm.data.role && updateRoleForm.data.role !== role.key ? 'opacity-50' : ''}>
                                         <div className="flex items-center">
-                                            <div className={cn(
-                                                "text-sm text-gray-600",
-                                                updateRoleForm.data.role === role.key && "font-semibold"
-                                            )}>
+                                            <div className={cn('text-sm text-gray-600', updateRoleForm.data.role === role.key && 'font-semibold')}>
                                                 {role.name}
                                             </div>
 
                                             {updateRoleForm.data.role === role.key && (
-                                                <svg className="ms-2 size-5 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                <svg
+                                                    className="ms-2 size-5 text-green-400"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth="1.5"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                                    />
                                                 </svg>
                                             )}
                                         </div>
 
-                                        <div className="mt-2 text-xs text-gray-600">
-                                            {role.description}
-                                        </div>
+                                        <div className="mt-2 text-xs text-gray-600">{role.description}</div>
                                     </div>
                                 </button>
                             ))}
@@ -336,7 +331,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                         <Button
                             onClick={updateRole}
                             disabled={updateRoleForm.processing}
-                            className={cn("ms-3", updateRoleForm.processing && "opacity-25")}
+                            className={cn('ms-3', updateRoleForm.processing && 'opacity-25')}
                         >
                             Save
                         </Button>
@@ -349,9 +344,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Leave Team</DialogTitle>
-                        <DialogDescription>
-                            Are you sure you would like to leave this team?
-                        </DialogDescription>
+                        <DialogDescription>Are you sure you would like to leave this team?</DialogDescription>
                     </DialogHeader>
 
                     <DialogFooter>
@@ -362,7 +355,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                             variant="destructive"
                             onClick={leaveTeam}
                             disabled={leaveTeamForm.processing}
-                            className={cn("ms-3", leaveTeamForm.processing && "opacity-25")}
+                            className={cn('ms-3', leaveTeamForm.processing && 'opacity-25')}
                         >
                             Leave
                         </Button>
@@ -375,9 +368,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                 <DialogContent>
                     <DialogHeader>
                         <DialogTitle>Remove Team Member</DialogTitle>
-                        <DialogDescription>
-                            Are you sure you would like to remove this person from the team?
-                        </DialogDescription>
+                        <DialogDescription>Are you sure you would like to remove this person from the team?</DialogDescription>
                     </DialogHeader>
 
                     <DialogFooter>
@@ -388,7 +379,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({
                             variant="destructive"
                             onClick={removeTeamMember}
                             disabled={removeTeamMemberForm.processing}
-                            className={cn("ms-3", removeTeamMemberForm.processing && "opacity-25")}
+                            className={cn('ms-3', removeTeamMemberForm.processing && 'opacity-25')}
                         >
                             Remove
                         </Button>

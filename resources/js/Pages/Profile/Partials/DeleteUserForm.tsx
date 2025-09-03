@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { useForm } from '@inertiajs/react';
 import ActionSection from '@/Components/ActionSection';
 import DialogModal from '@/Components/DialogModal';
 import InputError from '@/Components/InputError';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
+import { useForm } from '@inertiajs/react';
+import { useRef, useState } from 'react';
 
 interface Props {
     className?: string;
@@ -38,13 +38,10 @@ export default function DeleteUserForm({ className }: Props) {
     };
 
     return (
-        <ActionSection
-            title="Delete Account"
-            description="Permanently delete your account."
-            className={className}
-        >
+        <ActionSection title="Delete Account" description="Permanently delete your account." className={className}>
             <div className="max-w-xl text-sm text-gray-600">
-                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.
+                Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download
+                any data or information that you wish to retain.
             </div>
 
             <div className="mt-5">
@@ -60,7 +57,10 @@ export default function DeleteUserForm({ className }: Props) {
                 title="Delete Account"
                 content={
                     <>
-                        <p>Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.</p>
+                        <p>
+                            Are you sure you want to delete your account? Once your account is deleted, all of its resources and data will be
+                            permanently deleted. Please enter your password to confirm you would like to permanently delete your account.
+                        </p>
                         <div className="mt-4">
                             <Input
                                 ref={passwordInput}
@@ -85,12 +85,7 @@ export default function DeleteUserForm({ className }: Props) {
                         <Button variant="outline" onClick={closeModal}>
                             Cancel
                         </Button>
-                        <Button
-                            variant="destructive"
-                            className="ms-3"
-                            onClick={deleteUser}
-                            disabled={form.processing}
-                        >
+                        <Button variant="destructive" className="ms-3" onClick={deleteUser} disabled={form.processing}>
                             Delete Account
                         </Button>
                     </>

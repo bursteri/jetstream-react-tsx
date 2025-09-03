@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePage } from '@inertiajs/react';
-import AppLayout from '@/Layouts/AppLayout';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import ConnectedAccountsForm from '@/Pages/Profile/Partials/ConnectedAccountsForm';
 import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm';
 import LogoutOtherBrowserSessionsForm from '@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm';
@@ -20,8 +20,11 @@ export default function Show({ confirmsTwoFactorAuthentication, sessions }: Prop
     const { jetstream, socialstream, auth } = page.props;
 
     return (
-        <AppLayout
+        <SidebarLayout
             title="Profile"
+            breadcrumbs={[
+                { label: 'Profile', current: true }
+            ]}
             header={
                 <h2 className="font-semibold text-xl text-gray-800 leading-tight">
                     Profile
@@ -78,6 +81,6 @@ export default function Show({ confirmsTwoFactorAuthentication, sessions }: Prop
                     )}
                 </div>
             </div>
-        </AppLayout>
+        </SidebarLayout>
     );
 }

@@ -1,54 +1,58 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import SectionTitle from './SectionTitle';
-import { cn } from '@/lib/utils';
 
 interface FormSectionProps {
-    title?: React.ReactNode;
-    description?: React.ReactNode;
-    form?: React.ReactNode;
-    actions?: React.ReactNode;
-    children?: React.ReactNode;
-    onSubmit?: (e: React.FormEvent) => void;
+  title?: ReactNode;
+  description?: ReactNode;
+  form?: ReactNode;
+  actions?: ReactNode;
+  onSubmitted?: () => void;
+  className?: string;
 }
 
 const FormSection: React.FC<FormSectionProps> = ({ 
-    title, 
-    description, 
-    form, 
-    actions, 
-    children,
-    onSubmit 
+  title, 
+  description, 
+  form,
+  actions,
+  onSubmitted,
+  className = ''
 }) => {
-    const hasActions = !!actions;
+  const hasActions = !!actions;
 
-    return (
-        <div className="md:grid md:grid-cols-3 md:gap-6">
-            <SectionTitle title={title} description={description} />
-            <div className="mt-5 md:mt-0 md:col-span-2">
-                <form onSubmit={(e) => {
-                    e.preventDefault();
-                    onSubmit?.(e);
-                }}>
-                    <div
-                        className={cn(
-                            "px-4 py-5 bg-white dark:bg-gray-800 sm:p-6 shadow-sm",
-                            hasActions ? "sm:rounded-tl-md sm:rounded-tr-md" : "sm:rounded-md"
-                        )}
-                    >
-                        <div className="grid grid-cols-6 gap-6">
-                            {form || children}
-                        </div>
-                    </div>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmitted?.();
+  };
 
-                    {hasActions && (
-                        <div className="flex items-center justify-end px-4 py-3 bg-gray-50 dark:bg-gray-800 text-right sm:px-6 shadow-sm sm:rounded-bl-md sm:rounded-br-md">
-                            {actions}
-                        </div>
-                    )}
-                </form>
+  return (
+    <div className={`md:grid md:grid-cols-3 md:gap-6 ${className}`}>
+      <SectionTitle 
+        title={title}
+        description={description}
+      />
+
+      <div className="mt-5 md:col-span-2 md:mt-0">
+        <form onSubmit={handleSubmit}>
+          <div
+            className={`border border-zinc-900/10 bg-white px-4 py-5 sm:p-6 dark:border-zinc-800 dark:bg-zinc-900/50 ${
+              hasActions ? 'sm:rounded-tl-md sm:rounded-tr-md' : 'sm:rounded-md'
+            }`}
+          >
+            <div className="grid grid-cols-6 gap-6">
+              {form}
             </div>
-        </div>
-    );
+          </div>
+
+          {hasActions && (
+            <div className="flex items-center justify-end border-x border-b border-zinc-900/10 bg-zinc-50 px-4 py-3 text-end sm:rounded-br-md sm:rounded-bl-md sm:px-6 dark:border-zinc-800 dark:bg-zinc-950">
+              {actions}
+            </div>
+          )}
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default FormSection;
