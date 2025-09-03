@@ -41,8 +41,8 @@ const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissio
                             <img className="size-12 rounded-full object-cover" src={team.owner.profile_photo_url} alt={team.owner.name} />
 
                             <div className="ms-4 leading-tight">
-                                <div className="text-gray-900">{team.owner.name}</div>
-                                <div className="text-sm text-gray-700">{team.owner.email}</div>
+                                <div className="text-zinc-900">{team.owner.name}</div>
+                                <div className="text-sm text-zinc-700">{team.owner.email}</div>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@ const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissio
             actions={
                 permissions.canUpdateTeam ? (
                     <>
-                        {recentlySuccessful && <span className="me-3 text-sm text-gray-600">Saved.</span>}
+                        {recentlySuccessful && <span className="me-3 text-sm text-zinc-600">Saved.</span>}
 
                         <Button type="submit" disabled={processing} className={processing ? 'opacity-25' : ''}>
                             Save

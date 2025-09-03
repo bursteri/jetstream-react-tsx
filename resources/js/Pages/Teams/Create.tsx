@@ -4,7 +4,7 @@ import React from 'react';
 
 const Create: React.FC = () => {
     return (
-        <SidebarLayout title="Create Team" header={<h2 className="text-xl leading-tight font-semibold text-gray-800">Create Team</h2>}>
+        <SidebarLayout title="Create Team" header={<h2 className="text-xl leading-tight font-semibold text-zinc-800">Create Team</h2>}>
             <div>
                 <div className="mx-auto max-w-7xl py-10 sm:px-6 lg:px-8">
                     <CreateTeamForm />

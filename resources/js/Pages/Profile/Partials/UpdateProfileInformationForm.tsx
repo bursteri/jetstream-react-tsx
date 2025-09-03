@@ -1,23 +1,30 @@
-import React, { useRef, useState } from 'react';
-import { Link, router, useForm, usePage } from '@inertiajs/react';
 import ActionMessage from '@/Components/ActionMessage';
 import FormSection from '@/Components/FormSection';
 import InputError from '@/Components/InputError';
-import { Label } from '@/Components/ui/label';
 import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import { Link, router, useForm, usePage } from '@inertiajs/react';
+import { useRef, useState } from 'react';
 
 interface Props {
     user: any;
 }
 
+interface FormData {
+    _method: string;
+    name: string;
+    email: string;
+    photo: File | null;
+}
+
 export default function UpdateProfileInformationForm({ user }: Props) {
     const page = usePage<any>();
-    const form = useForm({
+    const form = useForm<FormData>({
         _method: 'PUT',
         name: user.name,
         email: user.email,
-        photo: null as File | null,
+        photo: null,
     });
 
     const [verificationLinkSent, setVerificationLinkSent] = useState(false);
@@ -25,8 +32,9 @@ export default function UpdateProfileInformationForm({ user }: Props) {
     const photoInput = useRef<HTMLInputElement>(null);
 
     const updateProfileInformation = () => {
-        if (photoInput.current?.files?.[0]) {
-            form.setData('photo', photoInput.current.files[0]);
+        const photo = photoInput.current?.files?.[0];
+        if (photo) {
+            form.setData('photo', photo);
         }
 
         form.post(route('user-profile-information.update'), {
@@ -76,7 +84,7 @@ export default function UpdateProfileInformationForm({ user }: Props) {
 
     return (
         <FormSection
-            onSubmit={updateProfileInformation}
+            onSubmitted={updateProfileInformation}
             title="Profile Information"
             description="Update your account's profile information and email address."
             form={
@@ -85,24 +93,14 @@ export default function UpdateProfileInformationForm({ user }: Props) {
                     {page.props.jetstream?.managesProfilePhotos && (
                         <div className="col-span-6 sm:col-span-4">
                             {/* Profile Photo File Input */}
-                            <input
-                                id="photo"
-                                ref={photoInput}
-                                type="file"
-                                className="hidden"
-                                onChange={updatePhotoPreview}
-                            />
+                            <input id="photo" ref={photoInput} type="file" className="hidden" onChange={updatePhotoPreview} />
 
                             <Label htmlFor="photo">Photo</Label>
 
                             {/* Current Profile Photo */}
                             {!photoPreview && (
                                 <div className="mt-2">
-                                    <img 
-                                        src={user.profile_photo_url} 
-                                        alt={user.name} 
-                                        className="rounded-full size-20 object-cover" 
-                                    />
+                                    <img src={user.profile_photo_url} alt={user.name} className="size-20 rounded-full object-cover" />
                                 </div>
                             )}
 
@@ -110,28 +108,18 @@ export default function UpdateProfileInformationForm({ user }: Props) {
                             {photoPreview && (
                                 <div className="mt-2">
                                     <span
-                                        className="block rounded-full size-20 bg-cover bg-no-repeat bg-center"
+                                        className="block size-20 rounded-full bg-cover bg-center bg-no-repeat"
                                         style={{ backgroundImage: `url('${photoPreview}')` }}
                                     />
                                 </div>
                             )}
 
-                            <Button
-                                type="button"
-                                variant="secondary"
-                                className="mt-2 me-2"
-                                onClick={selectNewPhoto}
-                            >
+                            <Button type="button" variant="secondary" className="me-2 mt-2" onClick={selectNewPhoto}>
                                 Select A New Photo
                             </Button>
 
                             {user.profile_photo_path && (
-                                <Button
-                                    type="button"
-                                    variant="secondary"
-                                    className="mt-2"
-                                    onClick={deletePhoto}
-                                >
+                                <Button type="button" variant="secondary" className="mt-2" onClick={deletePhoto}>
                                     Remove Photo
                                 </Button>
                             )}
@@ -171,13 +159,13 @@ export default function UpdateProfileInformationForm({ user }: Props) {
 
                         {page.props.jetstream?.hasEmailVerification && user.email_verified_at === null && (
                             <div>
-                                <p className="text-sm mt-2">
+                                <p className="mt-2 text-sm">
                                     Your email address is unverified.
                                     <Link
                                         href={route('verification.send')}
                                         method="post"
                                         as="button"
-                                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ml-1"
+                                        className="ml-1 rounded-md text-sm text-zinc-600 underline hover:text-zinc-900 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden"
                                         onClick={(e) => {
                                             e.preventDefault();
                                             sendEmailVerification();
@@ -188,7 +176,7 @@ export default function UpdateProfileInformationForm({ user }: Props) {
                                 </p>
 
                                 {verificationLinkSent && (
-                                    <div className="mt-2 font-medium text-sm text-green-600">
+                                    <div className="mt-2 text-sm font-medium text-green-600">
                                         A new verification link has been sent to your email address.
                                     </div>
                                 )}
@@ -203,11 +191,7 @@ export default function UpdateProfileInformationForm({ user }: Props) {
                         Saved.
                     </ActionMessage>
 
-                    <Button 
-                        type="submit"
-                        disabled={form.processing}
-                        className={form.processing ? 'opacity-25' : ''}
-                    >
+                    <Button type="submit" disabled={form.processing} className={form.processing ? 'opacity-25' : ''}>
                         Save
                     </Button>
                 </>

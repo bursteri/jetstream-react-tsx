@@ -34,8 +34,8 @@ const CreateTeamForm: React.FC = () => {
                             <img className="size-12 rounded-full object-cover" src={auth.user.profile_photo_url} alt={auth.user.name} />
 
                             <div className="ms-4 leading-tight">
-                                <div className="text-gray-900">{auth.user.name}</div>
-                                <div className="text-sm text-gray-700">{auth.user.email}</div>
+                                <div className="text-zinc-900">{auth.user.name}</div>
+                                <div className="text-sm text-zinc-700">{auth.user.email}</div>
                             </div>
                         </div>
                     </div>

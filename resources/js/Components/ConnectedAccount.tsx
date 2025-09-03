@@ -18,16 +18,16 @@ export default function ConnectedAccount({ provider, createdAt, action }: Connec
                     <ProviderIcon provider={provider} classes="h-6 w-6 me-2" />
 
                     <div className="ml-2">
-                        <div className="text-sm font-semibold text-gray-600">
+                        <div className="text-sm font-semibold text-zinc-600">
                             {provider.name}
                         </div>
 
                         {createdAt !== null ? (
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-zinc-500">
                                 Connected {createdAt}
                             </div>
                         ) : (
-                            <div className="text-xs text-gray-500">
+                            <div className="text-xs text-zinc-500">
                                 Not connected.
                             </div>
                         )}

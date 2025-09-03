@@ -20,7 +20,7 @@ export default function Show({ confirmsTwoFactorAuthentication, sessions }: Prop
 
     return (
         <SidebarLayout title="Profile" breadcrumbs={[{ label: 'Profile', current: true }]}>
-            <div>
+            <div className="bg-zinc-50/50 p-4">
                 <div className="mx-auto max-w-7xl py-10 sm:px-6 lg:px-8">
                     {jetstream?.canUpdateProfileInformation && (
                         <>

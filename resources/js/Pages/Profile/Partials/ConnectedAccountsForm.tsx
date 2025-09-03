@@ -72,7 +72,7 @@ export default function ConnectedAccountsForm({ className }: Props) {
                                         {page.props.jetstream?.managesProfilePhotos && account.avatar_path && (
                                             <button
                                                 onClick={() => setProfilePhoto(account.id)}
-                                                className="ms-6 cursor-pointer text-sm text-gray-500 hover:text-gray-700 focus:outline-hidden"
+                                                className="ms-6 cursor-pointer text-sm text-zinc-500 hover:text-zinc-700 focus:outline-hidden"
                                             >
                                                 Use Avatar as Profile Photo
                                             </button>

@@ -55,7 +55,7 @@ const ProviderIcon: React.FC<ProviderIconProps> = ({
     };
 
     return (
-        <div className="text-gray-900">
+        <div className="text-zinc-900">
             {renderIcon()}
         </div>
     );

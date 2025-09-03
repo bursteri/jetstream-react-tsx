@@ -128,14 +128,14 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
     return (
         <ActionSection title="Two Factor Authentication" description="Add additional security to your account using two factor authentication." className={className}>
             {twoFactorEnabled && !confirming ? (
-                <h3 className="text-lg font-medium text-gray-900">You have enabled two factor authentication.</h3>
+                <h3 className="text-lg font-medium text-zinc-900">You have enabled two factor authentication.</h3>
             ) : twoFactorEnabled && confirming ? (
-                <h3 className="text-lg font-medium text-gray-900">Finish enabling two factor authentication.</h3>
+                <h3 className="text-lg font-medium text-zinc-900">Finish enabling two factor authentication.</h3>
             ) : (
-                <h3 className="text-lg font-medium text-gray-900">You have not enabled two factor authentication.</h3>
+                <h3 className="text-lg font-medium text-zinc-900">You have not enabled two factor authentication.</h3>
             )}
 
-            <div className="mt-3 max-w-xl text-sm text-gray-600">
+            <div className="mt-3 max-w-xl text-sm text-zinc-600">
                 <p>
                     When two factor authentication is enabled, you will be prompted for a secure, random token during authentication. You may retrieve
                     this token from your phone's Google Authenticator application.
@@ -146,7 +146,7 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
                 <div>
                     {qrCode && (
                         <div>
-                            <div className="mt-4 max-w-xl text-sm text-gray-600">
+                            <div className="mt-4 max-w-xl text-sm text-zinc-600">
                                 {confirming ? (
                                     <p className="font-semibold">
                                         To finish enabling two factor authentication, scan the following QR code using your phone's authenticator
@@ -163,7 +163,7 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
                             <div className="mt-4 inline-block bg-white p-2" dangerouslySetInnerHTML={{ __html: qrCode }} />
 
                             {setupKey && (
-                                <div className="mt-4 max-w-xl text-sm text-gray-600">
+                                <div className="mt-4 max-w-xl text-sm text-zinc-600">
                                     <p className="font-semibold">
                                         Setup Key: <span dangerouslySetInnerHTML={{ __html: setupKey }} />
                                     </p>
@@ -197,14 +197,14 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
 
                     {recoveryCodes.length > 0 && !confirming && (
                         <div>
-                            <div className="mt-4 max-w-xl text-sm text-gray-600">
+                            <div className="mt-4 max-w-xl text-sm text-zinc-600">
                                 <p className="font-semibold">
                                     Store these recovery codes in a secure password manager. They can be used to recover access to your account if
                                     your two factor authentication device is lost.
                                 </p>
                             </div>
 
-                            <div className="mt-4 grid max-w-xl gap-1 rounded-lg bg-gray-100 px-4 py-4 font-mono text-sm">
+                            <div className="mt-4 grid max-w-xl gap-1 rounded-lg bg-zinc-100 px-4 py-4 font-mono text-sm">
                                 {recoveryCodes.map((code) => (
                                     <div key={code}>{code}</div>
                                 ))}

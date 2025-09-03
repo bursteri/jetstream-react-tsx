@@ -106,11 +106,11 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
             ]}
         >
             <div className="p-4">
-                <div className="max-w-7xl mx-auto">
+                <div className="max-w-7xl py-10 mx-auto">
                     <div>
                         {/* Generate API Token */}
                         <FormSection 
-                            onSubmit={createApiToken}
+                            onSubmitted={createApiToken}
                             title="Create API Token" 
                             description="API tokens allow third-party services to authenticate with our application on your behalf."
                             form={

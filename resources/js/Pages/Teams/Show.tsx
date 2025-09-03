@@ -13,7 +13,7 @@ interface ShowProps {
 
 const Show: React.FC<ShowProps> = ({ team, availableRoles, permissions }) => {
     return (
-        <SidebarLayout title="Team Settings" header={<h2 className="text-xl leading-tight font-semibold text-gray-800">Team Settings</h2>}>
+        <SidebarLayout title="Team Settings" header={<h2 className="text-xl leading-tight font-semibold text-zinc-800">Team Settings</h2>}>
             <div>
                 <div className="mx-auto max-w-7xl py-10 sm:px-6 lg:px-8">
                     <UpdateTeamNameForm team={team} permissions={permissions} />

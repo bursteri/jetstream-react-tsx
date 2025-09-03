@@ -102,7 +102,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                         form={
                             <>
                                 <div className="col-span-6">
-                                    <div className="max-w-xl text-sm text-gray-600">
+                                    <div className="max-w-xl text-sm text-zinc-600">
                                         Please provide the email address of the person you would like to add to this team.
                                     </div>
                                 </div>
@@ -124,14 +124,14 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                                         <Label htmlFor="roles">Role</Label>
                                         <InputError message={addTeamMemberForm.errors.role} className="mt-2" />
 
-                                        <div className="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200">
+                                        <div className="relative z-0 mt-1 cursor-pointer rounded-lg border border-zinc-200">
                                             {availableRoles.map((role, i) => (
                                                 <button
                                                     key={role.key}
                                                     type="button"
                                                     className={cn(
                                                         'relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-hidden',
-                                                        i > 0 && 'rounded-t-none border-t border-gray-200 focus:border-none',
+                                                        i > 0 && 'rounded-t-none border-t border-zinc-200 focus:border-none',
                                                         i !== availableRoles.length - 1 && 'rounded-b-none',
                                                     )}
                                                     onClick={() => addTeamMemberForm.setData('role', role.key)}
@@ -146,7 +146,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                                                         <div className="flex items-center">
                                                             <div
                                                                 className={cn(
-                                                                    'text-sm text-gray-600',
+                                                                    'text-sm text-zinc-600',
                                                                     addTeamMemberForm.data.role === role.key && 'font-semibold',
                                                                 )}
                                                             >
@@ -171,7 +171,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                                                             )}
                                                         </div>
 
-                                                        <div className="mt-2 text-start text-xs text-gray-600">{role.description}</div>
+                                                        <div className="mt-2 text-start text-xs text-zinc-600">{role.description}</div>
                                                     </div>
                                                 </button>
                                             ))}
@@ -182,7 +182,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                         }
                         actions={
                             <>
-                                {addTeamMemberForm.recentlySuccessful && <span className="me-3 text-sm text-gray-600">Added.</span>}
+                                {addTeamMemberForm.recentlySuccessful && <span className="me-3 text-sm text-zinc-600">Added.</span>}
                                 <Button
                                     type="submit"
                                     disabled={addTeamMemberForm.processing}
@@ -207,7 +207,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                             <div className="space-y-6">
                                 {team.team_invitations.map((invitation: any) => (
                                     <div key={invitation.id} className="flex items-center justify-between">
-                                        <div className="text-gray-600">{invitation.email}</div>
+                                        <div className="text-zinc-600">{invitation.email}</div>
 
                                         <div className="flex items-center">
                                             {userPermissions.canRemoveTeamMembers && (
@@ -245,11 +245,11 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
 
                                         <div className="flex items-center">
                                             {userPermissions.canUpdateTeamMembers && availableRoles.length ? (
-                                                <button className="ms-2 text-sm text-gray-400 underline" onClick={() => manageRole(user)}>
+                                                <button className="ms-2 text-sm text-zinc-400 underline" onClick={() => manageRole(user)}>
                                                     {displayableRole(user.membership.role)}
                                                 </button>
                                             ) : availableRoles.length ? (
-                                                <div className="ms-2 text-sm text-gray-400">{displayableRole(user.membership.role)}</div>
+                                                <div className="ms-2 text-sm text-zinc-400">{displayableRole(user.membership.role)}</div>
                                             ) : null}
 
                                             {page.props.auth.user.id === user.id ? (
@@ -281,21 +281,21 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                     </DialogHeader>
 
                     {managingRoleFor && (
-                        <div className="relative z-0 mt-1 cursor-pointer rounded-lg border border-gray-200">
+                        <div className="relative z-0 mt-1 cursor-pointer rounded-lg border border-zinc-200">
                             {availableRoles.map((role, i) => (
                                 <button
                                     key={role.key}
                                     type="button"
                                     className={cn(
                                         'relative inline-flex w-full rounded-lg px-4 py-3 focus:z-10 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500 focus:outline-hidden',
-                                        i > 0 && 'rounded-t-none border-t border-gray-200 focus:border-none',
+                                        i > 0 && 'rounded-t-none border-t border-zinc-200 focus:border-none',
                                         i !== availableRoles.length - 1 && 'rounded-b-none',
                                     )}
                                     onClick={() => updateRoleForm.setData('role', role.key)}
                                 >
                                     <div className={updateRoleForm.data.role && updateRoleForm.data.role !== role.key ? 'opacity-50' : ''}>
                                         <div className="flex items-center">
-                                            <div className={cn('text-sm text-gray-600', updateRoleForm.data.role === role.key && 'font-semibold')}>
+                                            <div className={cn('text-sm text-zinc-600', updateRoleForm.data.role === role.key && 'font-semibold')}>
                                                 {role.name}
                                             </div>
 
@@ -317,7 +317,7 @@ const TeamMemberManager: React.FC<TeamMemberManagerProps> = ({ team, availableRo
                                             )}
                                         </div>
 
-                                        <div className="mt-2 text-xs text-gray-600">{role.description}</div>
+                                        <div className="mt-2 text-xs text-zinc-600">{role.description}</div>
                                     </div>
                                 </button>
                             ))}

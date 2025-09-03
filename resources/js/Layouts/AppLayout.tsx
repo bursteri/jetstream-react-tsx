@@ -18,7 +18,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({
     useFlashMessages();
 
     return (
-        <div className="min-h-screen bg-gray-100">
+        <div className="min-h-screen bg-zinc-100">
             {title && <Head title={title} />}
             
             <Toaster position="top-right" />
