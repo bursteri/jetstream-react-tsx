@@ -1,61 +1,375 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Jetstream React Starter Kit
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, production-ready starter kit combining Laravel Jetstream with React, Inertia.js, and shadcn/ui components. This template provides a solid foundation for building full-stack applications with authentication, team management, and a beautiful UI out of the box.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Core Stack
+- **Laravel 12** - Latest version of the PHP framework
+- **React 18** - Modern JavaScript library for building user interfaces
+- **TypeScript** - Type-safe development experience
+- **Inertia.js** - The modern monolith with client-side routing
+- **Vite** - Lightning-fast build tool and dev server
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### UI & Styling
+- **shadcn/ui** - Beautiful, accessible component library built on Radix UI
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **Lucide Icons** - Beautiful & consistent icon toolkit
+- **Dark Mode Support** - Built-in theme switching with next-themes
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Authentication & Security
+- **Laravel Jetstream** - Robust authentication scaffolding
+- **Laravel Sanctum** - SPA authentication and API tokens
+- **Socialstream** - Social authentication (Google, GitHub, Facebook, etc.)
+- **Two-Factor Authentication** - Enhanced security with 2FA support
+- **Session Management** - Browser session control
 
-## Learning Laravel
+### Features Included
+- User registration and login
+- Email verification
+- Password reset
+- Profile management
+- Team creation and management
+- API token management
+- Social authentication providers
+- Responsive sidebar navigation
+- Toast notifications with Sonner
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Requirements
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP >= 8.2
+- Composer
+- Node.js >= 18
+- NPM or Yarn
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Quick Start
 
-## Laravel Sponsors
+### 1. Clone the Repository
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+git clone https://github.com/yourusername/jetstream-react.git
+cd jetstream-react
+```
 
-### Premium Partners
+### 2. Install PHP Dependencies
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```bash
+composer install
+```
+
+### 3. Environment Setup
+
+Copy the example environment file and generate an application key:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+### 4. Configure Database
+
+Update your `.env` file with your database credentials:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+```
+
+For quick local development, you can use SQLite:
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
+```
+
+### 5. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 6. Install JavaScript Dependencies
+
+```bash
+npm install
+```
+
+### 7. Build Assets
+
+For development:
+```bash
+npm run dev
+```
+
+For production:
+```bash
+npm run build
+```
+
+### 8. Start the Development Server
+
+Using the combined dev script (recommended):
+```bash
+composer run dev
+```
+
+This will start:
+- Laravel development server
+- Vite dev server
+- Queue worker
+- Laravel Pail for log monitoring
+
+Or run services individually:
+```bash
+# Laravel server
+php artisan serve
+
+# Vite dev server (in another terminal)
+npm run dev
+```
+
+Visit `http://localhost:8000` to see your application.
+
+## Social Authentication Setup (Optional)
+
+### 1. Configure OAuth Providers
+
+Add your OAuth credentials to `.env`:
+
+```env
+# Google
+GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+GOOGLE_REDIRECT_URI="${APP_URL}/oauth/google/callback"
+
+# GitHub
+GITHUB_CLIENT_ID=your-client-id
+GITHUB_CLIENT_SECRET=your-client-secret
+GITHUB_REDIRECT_URI="${APP_URL}/oauth/github/callback"
+
+# Add other providers as needed...
+```
+
+### 2. Enable Providers
+
+Configure enabled providers in `config/services.php` and `config/socialstream.php`.
+
+## Project Structure
+
+```
+├── app/                    # Laravel application logic
+├── bootstrap/              # Framework bootstrap files
+├── config/                 # Configuration files
+├── database/              
+│   ├── migrations/        # Database migrations
+│   └── seeders/          # Database seeders
+├── public/                # Public assets
+├── resources/
+│   ├── js/
+│   │   ├── Components/   # React components
+│   │   │   ├── ui/      # shadcn/ui components
+│   │   │   └── ...      # Custom components
+│   │   ├── Layouts/      # Layout components
+│   │   ├── Pages/        # Inertia page components
+│   │   └── app.tsx       # Main application entry
+│   └── css/              # Stylesheets
+├── routes/                # Application routes
+├── storage/               # File storage
+├── tests/                 # Test files
+└── vendor/                # Composer dependencies
+```
+
+## Available Scripts
+
+### Backend
+```bash
+# Run migrations
+php artisan migrate
+
+# Run seeders
+php artisan db:seed
+
+# Clear caches
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+
+# Run tests
+php artisan test
+```
+
+### Frontend
+```bash
+# Development server
+npm run dev
+
+# Production build
+npm run build
+
+# Build for SSR
+npm run build:ssr
+
+# Format code
+npm run format
+```
+
+### Combined Development
+```bash
+# Start all development services
+composer run dev
+
+# Run tests
+composer run test
+```
+
+## Customization
+
+### Adding New Pages
+
+Create a new page component in `resources/js/Pages/`:
+
+```tsx
+// resources/js/Pages/MyPage.tsx
+import { Head } from '@inertiajs/react';
+import SidebarLayout from '@/Layouts/SidebarLayout';
+
+export default function MyPage() {
+    return (
+        <SidebarLayout>
+            <Head title="My Page" />
+            <div>
+                <h1>My New Page</h1>
+            </div>
+        </SidebarLayout>
+    );
+}
+```
+
+Add a route in `routes/web.php`:
+
+```php
+use Inertia\Inertia;
+
+Route::get('/my-page', function () {
+    return Inertia::render('MyPage');
+})->middleware(['auth']);
+```
+
+### Adding UI Components
+
+This starter kit uses shadcn/ui. To add new components:
+
+```bash
+# Example: Add a select component
+npx shadcn@latest add select
+```
+
+Components will be added to `resources/js/Components/ui/`.
+
+### Styling
+
+Tailwind CSS is configured and ready to use. The configuration supports the new Tailwind CSS v4 features.
+
+## Testing
+
+### Backend Tests
+```bash
+# Run all tests
+php artisan test
+
+# Run specific test suite
+php artisan test --testsuite=Feature
+```
+
+### Frontend Tests
+Set up your preferred testing framework (Jest, Vitest, etc.) for React components.
+
+## Deployment
+
+### Build for Production
+
+1. Install dependencies:
+```bash
+composer install --optimize-autoloader --no-dev
+npm ci
+```
+
+2. Build assets:
+```bash
+npm run build
+```
+
+3. Cache configuration:
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+4. Run migrations:
+```bash
+php artisan migrate --force
+```
+
+### Environment Variables
+
+Ensure these are set in production:
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://yourdomain.com
+
+# Use strong, unique keys
+APP_KEY=base64:...
+
+# Configure mail, cache, queue drivers appropriately
+```
+
+## Security Considerations
+
+- Always use HTTPS in production
+- Keep dependencies updated regularly
+- Use strong, unique passwords
+- Enable two-factor authentication
+- Configure CORS properly for API access
+- Set up proper file permissions
+- Use environment variables for sensitive data
+- Regular security audits with `npm audit` and `composer audit`
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Support
+
+If you encounter any issues or have questions, please:
+- Check the [Laravel documentation](https://laravel.com/docs)
+- Check the [Inertia.js documentation](https://inertiajs.com)
+- Check the [React documentation](https://react.dev)
+- Open an issue on GitHub
+
+## Credits
+
+Built with:
+- [Laravel](https://laravel.com)
+- [Laravel Jetstream](https://jetstream.laravel.com)
+- [React](https://react.dev)
+- [Inertia.js](https://inertiajs.com)
+- [shadcn/ui](https://ui.shadcn.com)
+- [Tailwind CSS](https://tailwindcss.com)
+- [Socialstream](https://docs.socialstream.dev)
