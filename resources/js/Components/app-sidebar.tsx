@@ -1,7 +1,7 @@
 'use client';
 
 import { usePage } from '@inertiajs/react';
-import { CodeXml, LayoutGrid, Settings2 } from 'lucide-react';
+import { Home, LayoutGrid, Settings2 } from 'lucide-react';
 
 import { NavMain } from '@/Components/nav-main';
 import { NavTeam } from '@/Components/nav-team';
@@ -30,7 +30,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     const navMain = [
         {
-            title: 'Playground',
+            title: 'Dashboard',
             url: route('dashboard'),
             icon: LayoutGrid,
             isActive: isActiveRoute('dashboard'),
@@ -51,6 +51,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     isActive: isActiveRoute('teams.show'),
                 },
                 {
+                    title: 'API',
+                    url: route('api-tokens.index'),
+                    isActive: isActiveRoute('api-tokens.index'),
+                },
+                {
                     title: 'Billing',
                     url: '#',
                     isActive: false,
@@ -61,15 +66,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     const navSub = [
         {
-            title: 'API',
-            url: route('api-tokens.index'),
-            icon: CodeXml,
-            isActive: isActiveRoute('api-tokens.index'),
-        },
-        {
             title: 'Home',
             url: '/',
-            icon: CodeXml,
+            icon: Home,
             isActive: isActiveRoute('welcome'),
         },
     ];

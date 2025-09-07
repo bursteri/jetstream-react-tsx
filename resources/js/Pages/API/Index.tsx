@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useForm, usePage } from '@inertiajs/react';
-import { toast } from 'sonner';
-import SidebarLayout from '@/Layouts/SidebarLayout';
 import ActionSection from '@/Components/ActionSection';
-import { Checkbox } from '@/Components/ui/checkbox';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/Components/ui/dialog';
 import FormSection from '@/Components/FormSection';
 import InputError from '@/Components/InputError';
-import { Label } from '@/Components/ui/label';
-import { Button } from '@/Components/ui/button';
 import SectionBorder from '@/Components/SectionBorder';
+import { Button } from '@/Components/ui/button';
+import { Checkbox } from '@/Components/ui/checkbox';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/Components/ui/dialog';
 import { Input } from '@/Components/ui/input';
+import { Label } from '@/Components/ui/label';
+import SidebarLayout from '@/Layouts/SidebarLayout';
 import type { ApiToken } from '@/types';
+import { useForm, usePage } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 interface Props {
     tokens: ApiToken[];
@@ -21,7 +21,7 @@ interface Props {
 
 const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissions }) => {
     const page = usePage() as any;
-    
+
     const createApiTokenForm = useForm({
         name: '',
         permissions: defaultPermissions as string[],
@@ -85,45 +85,51 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
             if (checked) {
                 createApiTokenForm.setData('permissions', [...currentPermissions, permission]);
             } else {
-                createApiTokenForm.setData('permissions', currentPermissions.filter(p => p !== permission));
+                createApiTokenForm.setData(
+                    'permissions',
+                    currentPermissions.filter((p) => p !== permission),
+                );
             }
         } else {
             const currentPermissions = updateApiTokenForm.data.permissions;
             if (checked) {
                 updateApiTokenForm.setData('permissions', [...currentPermissions, permission]);
             } else {
-                updateApiTokenForm.setData('permissions', currentPermissions.filter(p => p !== permission));
+                updateApiTokenForm.setData(
+                    'permissions',
+                    currentPermissions.filter((p) => p !== permission),
+                );
             }
         }
     };
 
     return (
-        <SidebarLayout 
+        <SidebarLayout
             title="API Tokens"
             breadcrumbs={[
                 { label: 'Account', href: '#' },
-                { label: 'API Tokens', current: true }
+                { label: 'API Tokens', current: true },
             ]}
         >
-            <div className="p-4">
-                <div className="max-w-7xl py-10 mx-auto">
+            <div>
+                <div className="mx-auto max-w-7xl py-10 sm:px-6 lg:px-8">
                     <div>
                         {/* Generate API Token */}
-                        <FormSection 
+                        <FormSection
                             onSubmitted={createApiToken}
-                            title="Create API Token" 
+                            title="Create API Token"
                             description="API tokens allow third-party services to authenticate with our application on your behalf."
                             form={
                                 <>
                                     <div className="col-span-6 sm:col-span-4">
                                         <Label htmlFor="name">Name</Label>
-                                        <Input 
-                                            id="name" 
+                                        <Input
+                                            id="name"
                                             value={createApiTokenForm.data.name}
                                             onChange={(e) => createApiTokenForm.setData('name', e.target.value)}
-                                            type="text" 
-                                            className="mt-1 block w-full" 
-                                            autoFocus 
+                                            type="text"
+                                            className="mt-1 block w-full"
+                                            autoFocus
                                         />
                                         <InputError message={createApiTokenForm.errors.name} className="mt-2" />
                                     </div>
@@ -132,14 +138,16 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                                     {availablePermissions.length > 0 && (
                                         <div className="col-span-6">
                                             <Label htmlFor="permissions">Permissions</Label>
-                                            
+
                                             <div className="mt-2 grid grid-cols-1 gap-4 md:grid-cols-2">
                                                 {availablePermissions.map((permission) => (
                                                     <div key={permission}>
                                                         <label className="flex items-center">
-                                                            <Checkbox 
+                                                            <Checkbox
                                                                 checked={createApiTokenForm.data.permissions.includes(permission)}
-                                                                onCheckedChange={(checked) => handlePermissionChange(permission, checked as boolean, 'create')}
+                                                                onCheckedChange={(checked) =>
+                                                                    handlePermissionChange(permission, checked as boolean, 'create')
+                                                                }
                                                             />
                                                             <span className="ms-2 text-sm text-zinc-600 dark:text-zinc-400">{permission}</span>
                                                         </label>
@@ -151,10 +159,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                                 </>
                             }
                             actions={
-                                <Button 
-                                    className={createApiTokenForm.processing ? 'opacity-25' : ''}
-                                    disabled={createApiTokenForm.processing}
-                                >
+                                <Button className={createApiTokenForm.processing ? 'opacity-25' : ''} disabled={createApiTokenForm.processing}>
                                     Create
                                 </Button>
                             }
@@ -166,17 +171,15 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
 
                                 {/* Manage API Tokens */}
                                 <div className="mt-10 sm:mt-0">
-                                    <ActionSection 
-                                        title="Manage API Tokens" 
+                                    <ActionSection
+                                        title="Manage API Tokens"
                                         description="You may delete any of your existing tokens if they are no longer needed."
                                     >
                                         {/* API Token List */}
                                         <div className="space-y-6">
                                             {tokens.map((token) => (
                                                 <div key={token.id} className="flex items-center justify-between">
-                                                    <div className="break-all dark:text-white">
-                                                        {token.name}
-                                                    </div>
+                                                    <div className="break-all dark:text-white">{token.name}</div>
 
                                                     <div className="ms-2 flex items-center">
                                                         {token.last_used_ago && (
@@ -192,8 +195,8 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                                                             </button>
                                                         )}
 
-                                                        <button 
-                                                            className="ms-6 cursor-pointer text-sm text-red-500" 
+                                                        <button
+                                                            className="ms-6 cursor-pointer text-sm text-red-500"
                                                             onClick={() => confirmApiTokenDeletion(token)}
                                                         >
                                                             Delete
@@ -208,7 +211,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                         )}
 
                         {/* Token Value Modal */}
-                        <Dialog 
+                        <Dialog
                             open={displayingToken}
                             onOpenChange={(open) => {
                                 if (!open) setDisplayingToken(false);
@@ -217,9 +220,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle>API Token</DialogTitle>
-                                    <DialogDescription>
-                                        Please copy your new API token. For your security, it won't be shown again.
-                                    </DialogDescription>
+                                    <DialogDescription>Please copy your new API token. For your security, it won't be shown again.</DialogDescription>
                                 </DialogHeader>
 
                                 {page.props.jetstream?.flash?.token && (
@@ -237,7 +238,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                         </Dialog>
 
                         {/* API Token Permissions Modal */}
-                        <Dialog 
+                        <Dialog
                             open={managingPermissionsFor !== null}
                             onOpenChange={(open) => {
                                 if (!open) setManagingPermissionsFor(null);
@@ -252,7 +253,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                                     {availablePermissions.map((permission) => (
                                         <div key={permission}>
                                             <label className="flex items-center">
-                                                <Checkbox 
+                                                <Checkbox
                                                     checked={updateApiTokenForm.data.permissions.includes(permission)}
                                                     onCheckedChange={(checked) => handlePermissionChange(permission, checked as boolean, 'update')}
                                                 />
@@ -278,7 +279,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                         </Dialog>
 
                         {/* Delete Token Confirmation Modal */}
-                        <Dialog 
+                        <Dialog
                             open={apiTokenBeingDeleted !== null}
                             onOpenChange={(open) => {
                                 if (!open) setApiTokenBeingDeleted(null);
@@ -287,9 +288,7 @@ const Index: React.FC<Props> = ({ tokens, availablePermissions, defaultPermissio
                             <DialogContent>
                                 <DialogHeader>
                                     <DialogTitle>Delete API Token</DialogTitle>
-                                    <DialogDescription>
-                                        Are you sure you would like to delete this API token?
-                                    </DialogDescription>
+                                    <DialogDescription>Are you sure you would like to delete this API token?</DialogDescription>
                                 </DialogHeader>
 
                                 <DialogFooter>
