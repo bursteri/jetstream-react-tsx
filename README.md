@@ -47,8 +47,8 @@ A modern, production-ready starter kit combining Laravel Jetstream with React, I
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/jetstream-react.git
-cd jetstream-react
+git clone https://github.com/bursteri/jetstream-react-tsx.git my-app
+cd my-app
 ```
 
 ### 2. Install PHP Dependencies
