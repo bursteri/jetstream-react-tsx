@@ -72,7 +72,7 @@ export default function SetPasswordForm({ className }: Props) {
             }
             actions={
                 <>
-                    <ActionMessage on={form.recentlySuccessful} className="mr-3">
+                    <ActionMessage on={form.recentlySuccessful} className="me-3">
                         Saved.
                     </ActionMessage>
 

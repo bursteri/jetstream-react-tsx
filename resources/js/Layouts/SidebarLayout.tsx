@@ -38,7 +38,9 @@ const SidebarLayout: React.FC<SidebarLayoutProps> = ({ title, breadcrumbs, child
                     <header className="flex h-14 shrink-0 items-center gap-2 border-b border-zinc-900/10 transition-[width,height] ease-linear dark:border-zinc-800">
                         <div className="flex items-center gap-2 px-4">
                             <SidebarTrigger className="-ml-1" />
-                            <Separator orientation="vertical" className="mr-2 h-4" />
+                            <div className="mx-2 flex h-6">
+                                <Separator orientation="vertical" />
+                            </div>
 
                             {/* Breadcrumbs */}
                             {breadcrumbs && breadcrumbs.length > 0 && (

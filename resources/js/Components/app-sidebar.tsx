@@ -9,22 +9,21 @@ import { NavUser } from '@/Components/nav-user';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '@/Components/ui/sidebar';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const page = usePage();
-    const { auth } = page.props as any;
+    const { props: pageProps } = usePage();
+    const { auth } = pageProps;
     const user = {
-        name: auth?.user?.name || 'User',
-        email: auth?.user?.email || '',
-        avatar: auth?.user?.profile_photo_url || '/avatars/default.jpg',
+        name: auth.user.name || 'User',
+        email: auth.user.email || '',
+        avatar: (auth.user.profile_photo_url as string) || '/avatars/default.jpg',
     };
 
     // Get teams from the authenticated user
-    const teams = auth?.user?.all_teams || [];
-    const currentTeam = auth?.user?.current_team;
+    const teams = auth.user.all_teams || [];
+    const currentTeam = auth.user.current_team;
 
     // Helper function to check if a route is active using Ziggy
     const isActiveRoute = (routeName: string): boolean => {
-        // Access the current route name from Ziggy
-        const currentRouteName = (window as any).route().current();
+        const currentRouteName = (route() as { current: () => string }).current();
         return currentRouteName === routeName || currentRouteName?.startsWith(routeName + '.');
     };
 
@@ -55,11 +54,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     url: route('api-tokens.index'),
                     isActive: isActiveRoute('api-tokens.index'),
                 },
-                {
-                    title: 'Billing',
-                    url: '#',
-                    isActive: false,
-                },
+                // {
+                //     title: 'Billing',
+                //     url: '#',
+                //     isActive: false,
+                // },
             ],
         },
     ];

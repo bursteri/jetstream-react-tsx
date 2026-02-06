@@ -24,14 +24,8 @@ interface Props {
     };
 }
 
-interface FormData {
-    email: string;
-    password: string;
-    remember: boolean;
-}
-
 const Login: React.FC<Props> = ({ canResetPassword, status, errors = {}, socialstream }) => {
-    const form = useForm<FormData>({
+    const form = useForm({
         email: '',
         password: '',
         remember: true,

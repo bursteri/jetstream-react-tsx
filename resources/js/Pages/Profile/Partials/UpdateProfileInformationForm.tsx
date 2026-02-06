@@ -7,24 +7,19 @@ import { Label } from '@/Components/ui/label';
 import { Link, router, useForm, usePage } from '@inertiajs/react';
 import { useRef, useState } from 'react';
 
-interface Props {
-    user: any;
-}
+import type { User } from '@/types';
 
-interface FormData {
-    _method: string;
-    name: string;
-    email: string;
-    photo: File | null;
+interface Props {
+    user: User;
 }
 
 export default function UpdateProfileInformationForm({ user }: Props) {
-    const page = usePage<any>();
-    const form = useForm<FormData>({
+    const page = usePage();
+    const form = useForm({
         _method: 'PUT',
         name: user.name,
         email: user.email,
-        photo: null,
+        photo: null as File | null,
     });
 
     const [verificationLinkSent, setVerificationLinkSent] = useState(false);

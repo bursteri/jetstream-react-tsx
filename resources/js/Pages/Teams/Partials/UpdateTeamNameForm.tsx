@@ -11,13 +11,9 @@ interface UpdateTeamNameFormProps {
     permissions: any;
 }
 
-interface FormData {
-    name: string;
-}
-
 const UpdateTeamNameForm: React.FC<UpdateTeamNameFormProps> = ({ team, permissions }) => {
-    const { data, setData, put, processing, errors, recentlySuccessful } = useForm<FormData>({
-        name: team.name,
+    const { data, setData, put, processing, errors, recentlySuccessful } = useForm({
+        name: team.name as string,
     });
 
     const updateTeamName = () => {

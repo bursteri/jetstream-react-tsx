@@ -31,15 +31,62 @@ export interface SharedData {
     [key: string]: unknown;
 }
 
+export interface Team {
+    id: number;
+    name: string;
+    personal_team: boolean;
+    owner?: User;
+    profile_photo_url?: string;
+    [key: string]: unknown;
+}
+
 export interface User {
     id: number;
     name: string;
     email: string;
     avatar?: string;
     email_verified_at: string | null;
+    profile_photo_url?: string;
+    profile_photo_path?: string;
+    two_factor_enabled?: boolean;
+    all_teams?: Team[];
+    current_team?: Team;
     created_at: string;
     updated_at: string;
-    [key: string]: unknown; // This allows for additional properties...
+    [key: string]: unknown;
+}
+
+export interface JetstreamData {
+    canUpdateProfileInformation?: boolean;
+    canUpdatePassword?: boolean;
+    canManageTwoFactorAuthentication?: boolean;
+    hasAccountDeletionFeatures?: boolean;
+    managesProfilePhotos?: boolean;
+    hasEmailVerification?: boolean;
+    [key: string]: unknown;
+}
+
+export interface ConnectedAccount {
+    id: number;
+    provider: string;
+    avatar_path?: string;
+    created_at: string;
+    [key: string]: unknown;
+}
+
+export interface SocialstreamProvider {
+    id: string;
+    name: string;
+    buttonLabel?: string;
+}
+
+export interface SocialstreamData {
+    show?: boolean;
+    hasPassword?: boolean;
+    connectedAccounts?: ConnectedAccount[];
+    providers?: SocialstreamProvider[];
+    prompt?: string;
+    labels?: Record<string, string>;
 }
 
 export interface ApiToken {
@@ -57,5 +104,7 @@ export type PageProps<
     auth: {
         user: User;
     };
+    jetstream?: JetstreamData;
+    socialstream?: SocialstreamData;
     ziggy: Config & { location: string };
 };

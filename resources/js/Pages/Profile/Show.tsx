@@ -9,18 +9,29 @@ import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm';
 import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm';
 import { usePage } from '@inertiajs/react';
 
+interface Session {
+    agent: {
+        is_desktop: boolean;
+        platform?: string;
+        browser?: string;
+    };
+    ip_address: string;
+    is_current_device: boolean;
+    last_active?: string;
+}
+
 interface Props {
     confirmsTwoFactorAuthentication: boolean;
-    sessions: Array<any>;
+    sessions: Session[];
 }
 
 export default function Show({ confirmsTwoFactorAuthentication, sessions }: Props) {
-    const page = usePage<any>();
-    const { jetstream, socialstream, auth } = page.props;
+    const { props } = usePage();
+    const { jetstream, socialstream, auth } = props;
 
     return (
         <SidebarLayout title="Profile" breadcrumbs={[{ label: 'Profile', current: true }]}>
-            <div className="bg-zinc-50/50 p-4">
+            <div className="p-4">
                 <div className="mx-auto max-w-7xl py-10 sm:px-6 lg:px-8">
                     {jetstream?.canUpdateProfileInformation && (
                         <>

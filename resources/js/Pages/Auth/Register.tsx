@@ -33,18 +33,10 @@ interface PageProps extends InertiaPageProps {
     };
 }
 
-interface RegisterFormData {
-    name: string;
-    email: string;
-    password: string;
-    password_confirmation: string;
-    terms: boolean;
-}
-
 const Register: React.FC = () => {
     const page = usePage<PageProps>();
 
-    const { data, setData, post, processing, errors, reset } = useForm<RegisterFormData>({
+    const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
         password: '',

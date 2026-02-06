@@ -2,18 +2,16 @@ import { useEffect } from 'react';
 import { usePage } from '@inertiajs/react';
 import { toast } from 'sonner';
 
-interface PageProps {
-    flash?: {
-        success?: string;
-        error?: string;
-        warning?: string;
-        info?: string;
-    };
+interface FlashMessages {
+    success?: string;
+    error?: string;
+    warning?: string;
+    info?: string;
 }
 
 export const useFlashMessages = () => {
-    const { props } = usePage<PageProps>();
-    const flash = props.flash;
+    const { props } = usePage();
+    const flash = props.flash as FlashMessages | undefined;
 
     useEffect(() => {
         if (flash?.success) {

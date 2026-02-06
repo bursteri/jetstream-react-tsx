@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function TwoFactorAuthenticationForm({ requiresConfirmation, className }: Props) {
-    const page = usePage<any>();
+    const page = usePage();
     const [enabling, setEnabling] = useState(false);
     const [confirming, setConfirming] = useState(false);
     const [disabling, setDisabling] = useState(false);
@@ -43,7 +43,7 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
             {
                 preserveScroll: true,
                 onSuccess: () => {
-                    Promise.all([showQrCode(), showSetupKey(), showRecoveryCodes()]);
+                    Promise.all([showQrCode(), showSetupKey(), showRecoveryCodes()]).catch(() => {});
                 },
                 onFinish: () => {
                     setEnabling(false);
@@ -56,8 +56,8 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
     const showQrCode = () => {
         return new Promise((resolve) => {
             router.get(route('two-factor.qr-code'), {}, {
-                onSuccess: (page: any) => {
-                    setQrCode(page.props.svg);
+                onSuccess: (page) => {
+                    setQrCode(page.props.svg as string);
                     resolve(page);
                 },
                 preserveState: true,
@@ -69,8 +69,8 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
     const showSetupKey = () => {
         return new Promise((resolve) => {
             router.get(route('two-factor.secret-key'), {}, {
-                onSuccess: (page: any) => {
-                    setSetupKey(page.props.secretKey);
+                onSuccess: (page) => {
+                    setSetupKey(page.props.secretKey as string);
                     resolve(page);
                 },
                 preserveState: true,
@@ -82,8 +82,8 @@ export default function TwoFactorAuthenticationForm({ requiresConfirmation, clas
     const showRecoveryCodes = () => {
         return new Promise((resolve) => {
             router.get(route('two-factor.recovery-codes'), {}, {
-                onSuccess: (page: any) => {
-                    setRecoveryCodes(page.props.recoveryCodes || []);
+                onSuccess: (page) => {
+                    setRecoveryCodes((page.props.recoveryCodes as string[]) || []);
                     resolve(page);
                 },
                 preserveState: true,

@@ -6,13 +6,14 @@ import { Button } from '@/Components/ui/button';
 import { Input } from '@/Components/ui/input';
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { useRef, useState } from 'react';
+import type { SocialstreamProvider } from '@/types';
 
 interface Props {
     className?: string;
 }
 
 export default function ConnectedAccountsForm({ className }: Props) {
-    const page = usePage<any>();
+    const page = usePage();
     const [accountId, setAccountId] = useState<number | null>(null);
     const [confirmingRemoveAccount, setConfirmingRemoveAccount] = useState(false);
     const passwordInput = useRef<HTMLInputElement>(null);
@@ -21,8 +22,8 @@ export default function ConnectedAccountsForm({ className }: Props) {
         password: '',
     });
 
-    const getAccountForProvider = (provider: any) => {
-        return page.props.socialstream?.connectedAccounts?.filter((account: any) => account.provider === provider.id).shift();
+    const getAccountForProvider = (provider: SocialstreamProvider) => {
+        return page.props.socialstream?.connectedAccounts?.filter((account) => account.provider === provider.id).shift();
     };
 
     const setProfilePhoto = (id: number) => {
@@ -58,7 +59,7 @@ export default function ConnectedAccountsForm({ className }: Props) {
             className={className}
         >
             <div className="space-y-6">
-                {page.props.socialstream?.providers?.map((provider: any) => {
+                {page.props.socialstream?.providers?.map((provider) => {
                     const account = getAccountForProvider(provider);
 
                     return (
@@ -78,7 +79,7 @@ export default function ConnectedAccountsForm({ className }: Props) {
                                             </button>
                                         )}
 
-                                        {(page.props.socialstream?.connectedAccounts?.length > 1 || page.props.socialstream?.hasPassword) && (
+                                        {((page.props.socialstream?.connectedAccounts?.length ?? 0) > 1 || page.props.socialstream?.hasPassword) && (
                                             <Button variant="destructive" onClick={() => confirmRemoveAccount(account.id)}>
                                                 Remove
                                             </Button>

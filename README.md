@@ -6,7 +6,7 @@ A modern, production-ready starter kit combining Laravel Jetstream with React, I
 
 ### Core Stack
 - **Laravel 12** - Latest version of the PHP framework
-- **React 18** - Modern JavaScript library for building user interfaces
+- **React 19** - Modern JavaScript library for building user interfaces
 - **TypeScript** - Type-safe development experience
 - **Inertia.js** - The modern monolith with client-side routing
 - **Vite** - Lightning-fast build tool and dev server
@@ -39,7 +39,7 @@ A modern, production-ready starter kit combining Laravel Jetstream with React, I
 
 - PHP >= 8.2
 - Composer
-- Node.js >= 18
+- Node.js >= 20
 - NPM or Yarn
 
 ## Quick Start
@@ -175,6 +175,8 @@ Configure enabled providers in `config/services.php` and `config/socialstream.ph
 │   │   │   └── ...      # Custom components
 │   │   ├── Layouts/      # Layout components
 │   │   ├── Pages/        # Inertia page components
+│   │   ├── hooks/        # Custom React hooks
+│   │   ├── types/        # TypeScript type definitions
 │   │   └── app.tsx       # Main application entry
 │   └── css/              # Stylesheets
 ├── routes/                # Application routes
@@ -207,11 +209,8 @@ php artisan test
 # Development server
 npm run dev
 
-# Production build
+# Production build (includes SSR)
 npm run build
-
-# Build for SSR
-npm run build:ssr
 
 # Format code
 npm run format
