@@ -5,6 +5,7 @@ A modern, production-ready starter kit combining Laravel Jetstream with React, I
 ## Features
 
 ### Core Stack
+
 - **Laravel 12** - Latest version of the PHP framework
 - **React 19** - Modern JavaScript library for building user interfaces
 - **TypeScript** - Type-safe development experience
@@ -12,26 +13,29 @@ A modern, production-ready starter kit combining Laravel Jetstream with React, I
 - **Vite** - Lightning-fast build tool and dev server
 
 ### UI & Styling
+
 - **shadcn/ui** - Beautiful, accessible component library built on Radix UI
 - **Tailwind CSS v4** - Utility-first CSS framework
 - **Lucide Icons** - Beautiful & consistent icon toolkit
-- **Dark Mode Support** - Built-in theme switching with next-themes
+- **Dark Mode Ready** - System-aware theming with next-themes
 
 ### Authentication & Security
+
 - **Laravel Jetstream** - Robust authentication scaffolding
 - **Laravel Sanctum** - SPA authentication and API tokens
-- **Socialstream** - Social authentication (Google, GitHub, Facebook, etc.)
+- **Socialstream** - Social authentication (Google enabled by default, others configurable)
 - **Two-Factor Authentication** - Enhanced security with 2FA support
 - **Session Management** - Browser session control
 
 ### Features Included
+
 - User registration and login
 - Email verification
 - Password reset
 - Profile management
 - Team creation and management
 - API token management
-- Social authentication providers
+- Social authentication (Google by default)
 - Responsive sidebar navigation
 - Toast notifications with Sonner
 
@@ -101,11 +105,13 @@ npm install
 ### 7. Build Assets
 
 For development:
+
 ```bash
 npm run dev
 ```
 
 For production:
+
 ```bash
 npm run build
 ```
@@ -113,17 +119,20 @@ npm run build
 ### 8. Start the Development Server
 
 Using the combined dev script (recommended):
+
 ```bash
 composer run dev
 ```
 
 This will start:
+
 - Laravel development server
 - Vite dev server
 - Queue worker
 - Laravel Pail for log monitoring
 
 Or run services individually:
+
 ```bash
 # Laravel server
 php artisan serve
@@ -136,27 +145,25 @@ Visit `http://localhost:8000` to see your application.
 
 ## Social Authentication Setup (Optional)
 
-### 1. Configure OAuth Providers
+### 1. Configure Google OAuth (Enabled by Default)
 
 Add your OAuth credentials to `.env`:
 
 ```env
+APP_URL=http://localhost:8000
+
 # Google
 GOOGLE_CLIENT_ID=your-client-id
 GOOGLE_CLIENT_SECRET=your-client-secret
-GOOGLE_REDIRECT_URI="${APP_URL}/oauth/google/callback"
-
-# GitHub
-GITHUB_CLIENT_ID=your-client-id
-GITHUB_CLIENT_SECRET=your-client-secret
-GITHUB_REDIRECT_URI="${APP_URL}/oauth/github/callback"
-
-# Add other providers as needed...
 ```
 
-### 2. Enable Providers
+### 2. Enable Additional Providers (Optional)
 
-Configure enabled providers in `config/services.php` and `config/socialstream.php`.
+By default, only Google is enabled in `config/socialstream.php`.
+To add providers like GitHub/Facebook:
+
+- Add provider credentials to `config/services.php`
+- Add the provider to the `providers` array in `config/socialstream.php`
 
 ## Project Structure
 
@@ -164,7 +171,7 @@ Configure enabled providers in `config/services.php` and `config/socialstream.ph
 ├── app/                    # Laravel application logic
 ├── bootstrap/              # Framework bootstrap files
 ├── config/                 # Configuration files
-├── database/              
+├── database/
 │   ├── migrations/        # Database migrations
 │   └── seeders/          # Database seeders
 ├── public/                # Public assets
@@ -188,6 +195,7 @@ Configure enabled providers in `config/services.php` and `config/socialstream.ph
 ## Available Scripts
 
 ### Backend
+
 ```bash
 # Run migrations
 php artisan migrate
@@ -205,6 +213,7 @@ php artisan test
 ```
 
 ### Frontend
+
 ```bash
 # Development server
 npm run dev
@@ -217,6 +226,7 @@ npm run format
 ```
 
 ### Combined Development
+
 ```bash
 # Start all development services
 composer run dev
@@ -276,6 +286,7 @@ Tailwind CSS is configured and ready to use. The configuration supports the new 
 ## Testing
 
 ### Backend Tests
+
 ```bash
 # Run all tests
 php artisan test
@@ -285,6 +296,7 @@ php artisan test --testsuite=Feature
 ```
 
 ### Frontend Tests
+
 Set up your preferred testing framework (Jest, Vitest, etc.) for React components.
 
 ## Deployment
@@ -292,17 +304,20 @@ Set up your preferred testing framework (Jest, Vitest, etc.) for React component
 ### Build for Production
 
 1. Install dependencies:
+
 ```bash
 composer install --optimize-autoloader --no-dev
 npm ci
 ```
 
 2. Build assets:
+
 ```bash
 npm run build
 ```
 
 3. Cache configuration:
+
 ```bash
 php artisan config:cache
 php artisan route:cache
@@ -310,6 +325,7 @@ php artisan view:cache
 ```
 
 4. Run migrations:
+
 ```bash
 php artisan migrate --force
 ```
@@ -357,6 +373,7 @@ This project is open-sourced software licensed under the [MIT license](https://o
 ## Support
 
 If you encounter any issues or have questions, please:
+
 - Check the [Laravel documentation](https://laravel.com/docs)
 - Check the [Inertia.js documentation](https://inertiajs.com)
 - Check the [React documentation](https://react.dev)
@@ -365,6 +382,7 @@ If you encounter any issues or have questions, please:
 ## Credits
 
 Built with:
+
 - [Laravel](https://laravel.com)
 - [Laravel Jetstream](https://jetstream.laravel.com)
 - [React](https://react.dev)

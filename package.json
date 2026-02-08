@@ -5,7 +5,9 @@
     "scripts": {
         "build": "vite build && vite build --ssr",
         "start:dev": "concurrently --names \"VITE,ARTISAN\" --prefix-colors \"blue,green\" \"npm run dev\" \"php artisan serve\"",
-        "dev": "vite"
+        "dev": "vite",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.10",
