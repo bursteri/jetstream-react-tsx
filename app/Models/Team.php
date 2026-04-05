@@ -13,6 +13,11 @@ class Team extends JetstreamTeam
     /** @use HasFactory<\Database\Factories\TeamFactory> */
     use HasFactory;
 
+    public function resolveCollectionFromAttribute()
+    {
+        return null;
+    }
+
     /**
      * The attributes that are mass assignable.
      *
