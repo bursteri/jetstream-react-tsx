@@ -1,20 +1,3 @@
-// import ReactDOMServer from 'react-dom/server';
-// import { createInertiaApp } from '@inertiajs/react';
-// import createServer from '@inertiajs/react/server';
-// import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-
-// const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
-
-// createServer((page) =>
-//     createInertiaApp({
-//         page,
-//         render: ReactDOMServer.renderToString,
-//         title: (title) => `${title} - ${appName}`,
-//         resolve: (name) => resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')),
-//         setup: ({ App, props }) => <App {...props} />,
-//     })
-// );
-
 import { createInertiaApp } from '@inertiajs/react';
 import createServer from '@inertiajs/react/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -29,15 +12,10 @@ createServer((page) =>
         render: ReactDOMServer.renderToString,
         title: (title) => `${title} - ${appName}`,
         resolve: (name) =>
-            resolvePageComponent(
-                `./Pages/${name}.tsx`,
-                import.meta.glob('./Pages/**/*.tsx'),
-            ),
+            resolvePageComponent(`./Pages/${name}.tsx`, import.meta.glob('./Pages/**/*.tsx')) as any,
         setup: ({ App, props }) => {
-            // @ts-expect-error - Ziggy SSR global route setup
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            global.route<RouteName> = (name, params, absolute) =>
-                route(name, params as any, absolute, {
+            (globalThis as any).route = (name: RouteName, params: any, absolute: boolean) =>
+                route(name, params, absolute, {
                     ...page.props.ziggy,
                     location: new URL(page.props.ziggy.location),
                 });
