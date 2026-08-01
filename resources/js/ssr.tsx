@@ -3,6 +3,7 @@ import createServer from '@inertiajs/react/server';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import ReactDOMServer from 'react-dom/server';
 import { RouteName, route } from '../../vendor/tightenco/ziggy';
+import { TooltipProvider } from '@/Components/ui/tooltip';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 const pages = import.meta.glob<{ default: ResolvedComponent }>('./Pages/**/*.tsx');
@@ -20,7 +21,11 @@ createServer((page) =>
                     location: new URL(page.props.ziggy.location),
                 });
 
-            return <App {...props} />;
+            return (
+                <TooltipProvider>
+                    <App {...props} />
+                </TooltipProvider>
+            );
         },
     }),
 );

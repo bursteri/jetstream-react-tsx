@@ -86,9 +86,7 @@ export default function ConnectedAccountsForm({ className }: Props) {
                                         )}
                                     </div>
                                 ) : (
-                                    <Button asChild>
-                                        <Link href={route('oauth.redirect', { provider: provider.id })}>Connect</Link>
-                                    </Button>
+                                    <Button render={<Link href={route('oauth.redirect', { provider: provider.id })} />}>Connect</Button>
                                 )
                             }
                         />
